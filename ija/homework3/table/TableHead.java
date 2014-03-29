@@ -1,23 +1,23 @@
 /*
- * @author: Marek Fiala, xfiala46
+ * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
  * @file: TapeHead.java
  */
 
-package ija.homework3.tape;
+package ija.homework3.table;
 
-public class TapeHead {
+public class TableHead {
 	protected int id;
 	protected int key = 0;
-	protected TapeField field = null;
+	protected TableField field = null;
 	
 	//Inicializace hlavy, nastavení jeho identifikatoru id a informace o umistení na policku f.
-	public TapeHead(int id, TapeField f){
+	public TableHead(int id, TableField f){
 		this.id = id;
 		field = f;
 	}
 
 	//Vraci policko obsazene hlavou.
-	public TapeField seizedField(){
+	public TableField seizedField(){
 		return field;
 	}
 
@@ -27,7 +27,7 @@ public class TapeHead {
 	}
 
 	//Posune hlavu na pasce doprava na nejblizsi volne policko. Pokud ma klic tak muze otevrit branu.
-	public boolean moveRight(){
+/*	public boolean moveRight(){
 		TapeField fd = field;
         while((fd = fd.rightField())!= null){
 			if((fd.canSeize()) == true){
@@ -48,5 +48,5 @@ public class TapeHead {
 		}
 		
 		return false;
-	}
+	}*/
 }

@@ -1,37 +1,35 @@
 /*
- * @author: Marek Fiala, xfiala46
- * @file:TapeField.java
+ * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
+ * @file: TapeField.java
  */
 
-package ija.homework3.tape;
+package ija.homework3.table;
 
-import ija.homework3.objects.TapeObject;
-
-public class TapeField {
+public class TableField {
 
 	private int position;
-	private TapeObject object = null;
-	private TapeHead head = null;
-	protected Tape tape;
+	private TableObject object = null;
+	private TableHead head = null;
+	protected Table tape;
 	
 	//Inicializace policka p a umisteni objektu podle zadaneho formatu type
-	public TapeField(Tape tape, int p, String type){
-		object = TapeObject.create(type);
+	public TableField(Table tape, int p, String type){
+		object = TableObject.create(type);
 		this.tape = tape;
 		position = p;
 	}
 	
 	//Vrátí polícko, které je na pásce vpravo od tohoto policka. Pokud žádné není (konec pásky), vrati null.
-	public TapeField rightField(){
+/*	public TapeField rightField(){
 		return tape.fieldAt((position+1));
-	}
+	}*/
 	
 	//Test, zda je možné otevrít objekt na polcku. Podmínka: polícko obsahuje objekt, který lze otevrit.
 	public boolean canBeOpen(){
         if((this.object) == null){
             return object.canBeOpen();
         }else{
-            return false
+            return false;
         }
 
 	}
@@ -43,7 +41,7 @@ public class TapeField {
 	
 	//	Obsadi policko hlavou head, pokud je to mozne. Vraci úspesnost operace (ob-
 	//sazení se zdarilo/nezdarilo).
-	public boolean seize(TapeHead head){
+	public boolean seize(TableHead head){
 		if(canSeize()){
 			this.head = head;
 			return true;
@@ -52,9 +50,9 @@ public class TapeField {
 	}
 	
 	//Uvolni policko field. Vraci hlavu, která byla na policku. Pokud bylo policko volne, vraci null.
-	public TapeHead leave(){
+	public TableHead leave(){
 		if(head != null){
-			TapeHead tmp = head;
+			TableHead tmp = head;
 			head = null;
 			return tmp;
 		}
@@ -82,5 +80,13 @@ public class TapeField {
 			return object.open(); //Vraci zda bylo mozno otevrit
 		//Pokud object neexistuje vracim false
 		return false;
+	}
+	
+	// Vypis objektu na policku dle symbolu
+	public char printObj(){
+		if(object == null)
+			return '.';
+		else
+			return object.symbolPrint();
 	}
 }

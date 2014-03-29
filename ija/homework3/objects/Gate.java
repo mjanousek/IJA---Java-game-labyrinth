@@ -1,12 +1,15 @@
 /*
- * @author: Marek Fiala, xfiala46
- * @file:Gate.java
+ * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
+ * @file: Gate.java
  */
 
-package ija.homework3.objects;
 
-public class Gate extends TapeObject{
+package ija.homework3.objects;
+import ija.homework3.table.TableObject;
+
+public class Gate extends TableObject{
 	protected boolean open= false;
+	char symbol = 'G';
 	
 	//Lze obsadit podle toho, zda je otevrena
 	public boolean canSeize(){
@@ -18,6 +21,7 @@ public class Gate extends TapeObject{
 		//Pokud je uzavrena muzeme otevrit
 		if(this.open == false){
 			this.open = true; //Otevreni
+			symbol = 'O'; 	  //Symbol otevrene brany
 			return true;
 		}
 		else //Jednou otevrenou branu nelze znovu otevrit
@@ -27,5 +31,13 @@ public class Gate extends TapeObject{
 	//Je mozne odemcit
 	public boolean canBeOpen(){
 		return (!open);
+	}
+	
+	public boolean canBeTaken(){
+		return false;
+	}
+	
+	public char symbolPrint(){
+		return symbol;
 	}
 }

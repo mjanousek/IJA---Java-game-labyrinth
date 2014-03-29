@@ -1,17 +1,17 @@
 /*
  * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
- * @file: Wall.java
+ * @file: Finish.java
  */
 
 
 package ija.homework3.objects;
 import ija.homework3.table.TableObject;
 
-public class Wall extends TableObject{
+public class Finish extends TableObject{
 	
 	//Nelze obsadit
 	public boolean canSeize(){
-		return false;
+		return true;
 	}
 	
 	//Nelze otevrit
@@ -19,7 +19,6 @@ public class Wall extends TableObject{
 		return false;
 	}
 
-	
 	public boolean canBeOpen(){
 		return false;
 	}
@@ -29,6 +28,6 @@ public class Wall extends TableObject{
 	}
 	
 	public char symbolPrint(){
-		return 'W';
+		return 'F';
 	}
 }

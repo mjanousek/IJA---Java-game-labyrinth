@@ -1,13 +1,14 @@
 /*
  * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
- * @file: Wall.java
+ * @file: Key.java
  */
 
 
 package ija.homework3.objects;
 import ija.homework3.table.TableObject;
 
-public class Wall extends TableObject{
+
+public class Key extends TableObject{
 	
 	//Nelze obsadit
 	public boolean canSeize(){
@@ -18,17 +19,16 @@ public class Wall extends TableObject{
 	public boolean open(){
 		return false;
 	}
-
 	
 	public boolean canBeOpen(){
 		return false;
 	}
 	
 	public boolean canBeTaken(){
-		return false;
+		return true;
 	}
 	
 	public char symbolPrint(){
-		return 'W';
+		return 'K';
 	}
 }
