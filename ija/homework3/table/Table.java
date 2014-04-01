@@ -38,12 +38,27 @@ public class Table {
 		while(i < format.length()){
 			if(format.charAt(i) != ' '){
 				String buffer = "" +format.charAt(i);
-				objectFD[position][line] = new TableField(this, position, buffer);
+				objectFD[position][line] = new TableField(this, position,line, buffer);
 				position++;
 			}
 			i++;
 		}	
 		line++;
+	}
+	
+	public Player createPlayer(){
+		TableField fd = objectFD[0][0];			
+		for(int i = 0; i < sizeY;i++){
+			for(int j = 0; j < sizeX; j++){
+				fd = objectFD[j][i];
+				if((fd.canSeize()) == true){
+					Player pl = new Player(fd.positionX(),fd.positionY(), fd);
+					fd.seize(pl);
+					return pl;
+				}
+			}
+		}				
+		return null;
 	}
 	
 
@@ -64,22 +79,5 @@ public class Table {
 
 		return objectFD[i];
 	}
-	
-		Vytvori a vraci hlavu s identifikatorem i a umístí ji na prvni volne policko zleva (volne podle operace
-	canSeize()). Pokud nelze vlozit vraci null.
-	public TapeHead createHead(int i){
-		TapeField fd = objectFD[0];
-		
-		do{
-			if((fd.canSeize()) == true){
-				TapeHead head = new TapeHead(fd.position(), fd);
-				fd.seize(head);
-				return head;
-			}
-				
-			
-		}while((fd = fd.rightField())!= null);
-			
-		return null;
-	}	*/
+*/
 }

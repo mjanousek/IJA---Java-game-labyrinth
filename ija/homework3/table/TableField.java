@@ -9,16 +9,18 @@ import ija.homework3.player.*;
 
 public class TableField {
 
-	private int position;
+	private int x;
+	private int y;
 	private TableObject object = null;
 	private Player figure = null;
-	protected Table tape;
+	protected Table table;
 	
 	//Inicializace policka p a umisteni objektu podle zadaneho formatu type
-	public TableField(Table tape, int p, String type){
+	public TableField(Table table, int x,int y, String type){
 		object = TableObject.create(type);
-		this.tape = tape;
-		position = p;
+		this.table = table;
+		this.x = x;
+		this.y = y;
 	}
 	
 	//Vrátí polícko, které je na pásce vpravo od tohoto policka. Pokud žádné není (konec pásky), vrati null.
@@ -33,12 +35,14 @@ public class TableField {
         }else{
             return false;
         }
-
 	}
 	
 	//Vrací pozici policka.
-	public int position(){
-		return position;
+	public int positionX(){
+		return x;
+	}
+	public int positionY(){
+		return y;
 	}
 	
 	//	Obsadi policko hlavou figure, pokud je to mozne. Vraci úspesnost operace (ob-
@@ -58,7 +62,7 @@ public class TableField {
 			figure = null;
 			return tmp;
 		}
-
+		
 		return null;
 	}
 	
@@ -86,9 +90,12 @@ public class TableField {
 	
 	// Vypis objektu na policku dle symbolu
 	public char printObj(){
-		if(object == null)
-			return '.';
-		else
+
+		if(object != null)
 			return object.symbolPrint();
+		else if(figure != null)
+			return figure.symbolSight();
+		else 
+			return '.';
 	}
 }

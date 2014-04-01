@@ -15,7 +15,9 @@ import java.util.Scanner;
 
 public class FileReader {
 	public Table openFile(String filename) {
+		
 		File file = new File(System.getProperty("user.dir")+"/src/ija/homework3/maze/"+filename);
+		//Zjisteni existence
 		if (!file.exists()) {
 			System.out.println(filename + " does not exist.");
 			return null;
@@ -37,6 +39,7 @@ public class FileReader {
 		return null;
 	}
   
+	//Naplni tabulku objekty
    public Table readFile(Scanner s){
 	   int x,y;
 	  
