@@ -41,17 +41,32 @@ class Input{
 
     public boolean ValidateInput(){
         if(this.str != null){
-            if(this.str.equals("game") || this.str.equals("show") || this.str.equals("close")
-                    || this.str.equals("go") || this.str.equals("stop") || this.str.equals("left") || this.str.equals("right")
-                    || this.str.equals("take") ||this.str.equals("open") || this.str.equals("keys")){
-                //kontrola vsech prikazu, ktere je moznost zadat do prikazove radky
+        	  if(str != null){
+                  
+                  switch(str){
+                      case "game":
+                      case "show":
+                      case "close":
+                      case "go":
+                      case "stop":
+                      case "left":
+                      case "right":
+                      case "take":
+                      case "open":
+                      case "keys":
+                          return true;
+                      default:
+                          return false;
+                         
+                  }
 
 
-                return true;
-            }else{
-                //vstup neni validni
-                return false;
-            }
+
+              }else{
+
+                  System.out.println("Nebyl zdan zadny prikaz.");
+                  return false;
+              }
 
         }else{
 
@@ -83,15 +98,52 @@ class Input{
 
     public boolean runCommand(){
         if(ValidateInput()){
-            if(this.ValidateHeadMove()){
-                //poslat prikaz hlave na vykonani pohybu
-
-            }else if(this.ValidateHeadCommand()){
-                //poslat prikaz hlave na vykonani akce
-            }else{
-                //vykonat prikaz hry
-            }
-            return true;
+        	
+            	switch(str){
+            		//-------------------------------------------prikazy hrace
+            		case "left":
+	    				//player.rotateLeft();
+	    				return true;
+	    			case "right":
+	    				//player.rotateRight();
+	    				return true;
+	    			case "go":
+	    				
+	    				return true;
+	    			case "stop":
+	    				
+	    				return true;
+	    
+	    			case "keys":
+	    				
+	    				return true;
+	    			case "right":
+	    				
+	    				return true;
+	    			case "go":
+	    				
+	    				return true;
+	    			case "stop":
+	    				
+	    				return true;
+	    			
+	    			//-------------------------------------------herni prikazy
+	    			case "game":
+	    				
+	    				return true;
+	    			case "show":
+	    				
+	    				return true;
+	    			case "close":
+	    				
+	    				return true;
+	    			
+	    			
+	    			detault:
+	    				return false;
+	        	}
+    	    
+            
         }else{
             return false;
         }
