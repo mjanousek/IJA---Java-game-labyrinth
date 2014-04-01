@@ -12,9 +12,6 @@ import java.io.InputStreamReader;
 import ija.homework3.objects.*;
 import ija.homework3.tape.*;
 
-
-
-
 class Input{
 
     String str;

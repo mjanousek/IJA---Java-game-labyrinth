@@ -24,6 +24,16 @@ public class Table {
 		int i = 0;
 		int position = 0;
 		
+		if(format.length() > sizeX){
+			System.out.println("Pretahl jsi po X!\n");
+			return;
+		}
+		
+		if(line >= sizeY){
+			System.out.println("Pretahl jsi po Y!\n");
+			return;
+		}
+		
 		while(i < format.length()){
 			if(format.charAt(i) != ' '){
 				String buffer = "" +format.charAt(i);
@@ -35,7 +45,7 @@ public class Table {
 		line++;
 	}
 	
-	
+
 	//Vypis bludiste
 	public void printTable(){
 		for(int i = 0; i < sizeY;i++){
