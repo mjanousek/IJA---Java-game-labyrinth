@@ -98,4 +98,18 @@ public class TableField {
 		else 
 			return '.';
 	}
+	
+	public TableField rightField(){
+		return table.fieldAt(x+1,y);
+	}
+	public TableField leftField(){
+		return table.fieldAt(x+1,y);
+	}
+	public TableField frontField(){
+		return table.fieldAt(x,y-1);
+	}
+	public TableField behindField(){
+		return table.fieldAt(x,y+1);
+	}
+	
 }

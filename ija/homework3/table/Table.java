@@ -73,11 +73,9 @@ public class Table {
 	}
 
 	/*Vrati policko na indexu i. Pokud je index mimo rozsah, vrati null*/
-/*	public TapeField fieldAt(int i){
-		if(i > (size-1) || i < 0)
-			return null;
-
-		return objectFD[i];
+	public TableField fieldAt(int x, int y){
+		//chybi osetreni hranic
+		return objectFD[x][y];
 	}
-*/
+
 }

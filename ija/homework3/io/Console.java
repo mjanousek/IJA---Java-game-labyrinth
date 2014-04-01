@@ -10,14 +10,65 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import ija.homework3.objects.*;
+import ija.homework3.player.Player;
 import ija.homework3.table.*;
 
 
 
 
-class Input{
+public class Console{
 
-    String str;
+	String id = "";
+    String str = "";
+    Table table;
+    Player pl;
+    
+    public boolean InitGame(){
+    	while (id.equals("")){
+    		System.out.println("Prosim inicializujte hru, nebo ju ukoncete.");
+    		this.ReadInput();
+    		if(str.equals("exit"))
+    			return false;
+    		
+    		id = str.substring(5);
+    		str = str.substring(0,4);
+    		if(!str.equals("game")) //to druhe nemusi byt prazdne?
+    			id = "";
+    		//System.out.println("id = "+id+"|");
+    		//System.out.println("str = "+str+"|");
+    		
+    	}
+    	str = "";
+    	return true;
+    }
+    
+    public void RunGame(Table table){
+    	this.table = table; 
+		this.pl = table.createPlayer();
+		//pl.rotateLeft();
+		//pl.rotateLeft();
+		
+    	//------------------------------------------------
+    	
+    	while(!str.equals("exit")){
+    		System.out.println("#-------------------------------#");
+    		ReadInput();
+    		if(ValidateInput()){
+    			System.out.println("validateinput");
+    			if(!runCommand())
+    				System.out.println("Prikaz se nepodarilo provezt.");
+    			
+    				
+    		}else{
+    			System.out.println("Neplatny prikaz, -h pro napovedu.");
+    		}
+    		
+    	}
+    	
+    	System.out.println("#   konec   #");
+		
+    }
+    
 
     public void ReadInput(){
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -44,12 +95,13 @@ class Input{
         	  if(str != null){
                   
                   switch(str){
-                      case "game":
+                      //case "game":
                       case "show":
                       case "close":
                       case "go":
                       case "stop":
                       case "left":
+                    	  
                       case "right":
                       case "take":
                       case "open":
@@ -97,56 +149,42 @@ class Input{
 
 
     public boolean runCommand(){
-        if(ValidateInput()){
-        	
-            	switch(str){
+           	switch(str){
             		//-------------------------------------------prikazy hrace
             		case "left":
-	    				//player.rotateLeft();
+            			pl.rotateLeft();
 	    				return true;
 	    			case "right":
-	    				//player.rotateRight();
+            			pl.rotateRight();
 	    				return true;
 	    			case "go":
-	    				
+	    				pl.move();
 	    				return true;
+	    				//return true;
 	    			case "stop":
 	    				
-	    				return true;
+	    				//return true;
 	    
 	    			case "keys":
 	    				
-	    				return true;
-	    			case "right":
-	    				
-	    				return true;
-	    			case "go":
-	    				
-	    				return true;
-	    			case "stop":
-	    				
-	    				return true;
+	    				//return true;
 	    			
 	    			//-------------------------------------------herni prikazy
-	    			case "game":
+	    			//case "game":
 	    				
-	    				return true;
+	    				//return true;
 	    			case "show":
-	    				
+	    				table.printTable();
 	    				return true;
 	    			case "close":
 	    				
-	    				return true;
-	    			
-	    			
-	    			detault:
-	    				return false;
-	        	}
+	    				//return true;
+	    			default:
+	    				break;
+	        }
     	    
-            
-        }else{
             return false;
-        }
+
     }
 
 

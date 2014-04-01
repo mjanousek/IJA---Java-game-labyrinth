@@ -55,4 +55,41 @@ public class Player {
 		default: return 'X';		
 		}
 	}
+	
+	public boolean move(){
+		TableField fd = field;
+		
+		
+			if(sight == 0){
+				fd = fd.frontField();
+			}else if(sight == 1){
+				fd = fd.rightField();
+			}else if(sight == 2){
+				fd = fd.behindField();
+			}else if(sight == 3){
+				fd = fd.leftField();
+			}
+			
+	        if(fd != null){
+				if((fd.canSeize()) == true){
+					fd.seize(this);
+					field.leave();
+					field = fd;
+					return true;
+				}
+				else if(key > 0){
+					if((fd.open()) == true){
+					fd.seize(this);
+					field.leave();
+					field = fd;
+					key--;
+					return true;
+					}
+				}				
+			}else{
+				return false; //toto sem placl
+			}
+		
+		return false;
+	}
 }
