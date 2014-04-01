@@ -6,6 +6,8 @@
 package ija.homework3.table;
 import ija.homework3.player.*;
 
+import java.util.Random;
+
 public class Table {
 	
 	protected TableField[][] objectFD;
@@ -46,10 +48,13 @@ public class Table {
 		line++;
 	}
 	
+	
+	//Vytvoreni hrace na urcite pozici
 	public Player createPlayer(){
-		TableField fd = objectFD[0][0];			
-		for(int i = 0; i < sizeY;i++){
-			for(int j = 0; j < sizeX; j++){
+		Random rand = new Random();
+		TableField fd;			
+		for(int i = rand.nextInt(sizeY); i < sizeY;i++){		//Pokus o nahodne generovani polohy
+			for(int j = rand.nextInt(sizeX); j < sizeX; j++){
 				fd = objectFD[j][i];
 				if((fd.canSeize()) == true){
 					Player pl = new Player(fd.positionX(),fd.positionY(), fd);
@@ -58,7 +63,7 @@ public class Table {
 				}
 			}
 		}				
-		return null;
+		return createPlayer();		//Pokud poloha nenalezena dalsi zanoreni rekurze
 	}
 	
 
@@ -75,6 +80,8 @@ public class Table {
 	/*Vrati policko na indexu i. Pokud je index mimo rozsah, vrati null*/
 	public TableField fieldAt(int x, int y){
 		//chybi osetreni hranic
+		if(x > sizeX || x < 0 || y > sizeY || y < 0)
+			return null;
 		return objectFD[x][y];
 	}
 

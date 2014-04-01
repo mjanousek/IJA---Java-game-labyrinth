@@ -22,19 +22,13 @@ public class TableField {
 		this.x = x;
 		this.y = y;
 	}
-	
-	//Vrátí polícko, které je na pásce vpravo od tohoto policka. Pokud žádné není (konec pásky), vrati null.
-/*	public TapeField rightField(){
-		return tape.fieldAt((position+1));
-	}*/
-	
+		
 	//Test, zda je možné otevrít objekt na polcku. Podmínka: polícko obsahuje objekt, který lze otevrit.
 	public boolean canBeOpen(){
-        if((this.object) == null){
+        if((this.object) == null)
             return object.canBeOpen();
-        }else{
+        else
             return false;
-        }
 	}
 	
 	//Vrací pozici policka.
@@ -62,7 +56,6 @@ public class TableField {
 			figure = null;
 			return tmp;
 		}
-		
 		return null;
 	}
 	
@@ -99,17 +92,20 @@ public class TableField {
 			return '.';
 	}
 	
-	public TableField rightField(){
-		return table.fieldAt(x+1,y);
-	}
-	public TableField leftField(){
-		return table.fieldAt(x+1,y);
-	}
-	public TableField frontField(){
-		return table.fieldAt(x,y-1);
-	}
-	public TableField behindField(){
-		return table.fieldAt(x,y+1);
-	}
+	// Funkce pro ziskani policka na dane pozici
+	public TableField fieldOnPosition(int x, int y){
+		return table.fieldAt(x,y);
+	}	
 	
+	// Pokus o vezmuti klice 
+	public boolean tryTakeKey(){
+		if(object == null)
+			return false;
+		else if(object.canBeTaken()){
+			object = null; //Simulace vziti klice
+			return true;
+		}
+		else
+			return false;
+	}
 }

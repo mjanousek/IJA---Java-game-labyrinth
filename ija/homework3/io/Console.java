@@ -13,9 +13,6 @@ import ija.homework3.objects.*;
 import ija.homework3.player.Player;
 import ija.homework3.table.*;
 
-
-
-
 public class Console{
 
 	String id = "";
@@ -23,23 +20,22 @@ public class Console{
     Table table;
     Player pl;
     
-    public boolean InitGame(){
+    public String InitGame(){
     	while (id.equals("")){
     		System.out.println("Prosim inicializujte hru, nebo ju ukoncete.");
     		this.ReadInput();
     		if(str.equals("exit"))
-    			return false;
+    			return null;
     		
     		id = str.substring(5);
     		str = str.substring(0,4);
     		if(!str.equals("game")) //to druhe nemusi byt prazdne?
     			id = "";
-    		//System.out.println("id = "+id+"|");
     		//System.out.println("str = "+str+"|");
     		
     	}
     	str = "";
-    	return true;
+    	return id;
     }
     
     public void RunGame(Table table){
@@ -95,7 +91,6 @@ public class Console{
         	  if(str != null){
                   
                   switch(str){
-                      //case "game":
                       case "show":
                       case "close":
                       case "go":
@@ -111,18 +106,15 @@ public class Console{
                           return false;
                          
                   }
-
-
-
               }else{
 
-                  System.out.println("Nebyl zdan zadny prikaz.");
+                  System.out.println("Nebyl zadan zadny prikaz.");
                   return false;
               }
 
         }else{
 
-            System.out.println("Nebyl zdan zadny prikaz.");
+            System.out.println("Nebyl zadan zadny prikaz.");
             return false;
         }
     }
@@ -160,15 +152,21 @@ public class Console{
 	    			case "go":
 	    				pl.move();
 	    				return true;
-	    				//return true;
 	    			case "stop":
 	    				
 	    				//return true;
 	    
 	    			case "keys":
-	    				
-	    				//return true;
+	    				System.out.println("You have:"+pl.keyCount()+"keys");
+	    				return true;
 	    			
+	    			case "take":
+	    				pl.takeKey();
+	    				return true;
+	    			
+	    			case "open":
+	    				pl.openGate();
+	    				return true;
 	    			//-------------------------------------------herni prikazy
 	    			//case "game":
 	    				
@@ -184,7 +182,6 @@ public class Console{
 	        }
     	    
             return false;
-
     }
 
 

@@ -5,7 +5,7 @@
 
 package ija.homework3.player;
 
-import ija.homework3.table.TableField;
+import ija.homework3.table.*;
 
 public class Player {
 	protected int x;
@@ -30,6 +30,10 @@ public class Player {
 	//Prida hlave n klicu
 	public void addKeys(int n){
 		key += n;
+	}
+	
+	public int keyCount(){
+		return key;
 	}
 
 	//rotace vlevo
@@ -56,40 +60,57 @@ public class Player {
 		}
 	}
 	
-	public boolean move(){
-		TableField fd = field;
+	//Vrati policko na ktere se figurka diva
+	public TableField fieldBeforeSight(){
+		if(sight == 0) 		//nahoru
+			return field.fieldOnPosition(x,y-1);
+		else if(sight == 1)	//doprava
+			return field.fieldOnPosition(x+1,y);
+		else if(sight == 2)	//dolu
+			return field.fieldOnPosition(x,y+1);
+		else if(sight == 3)	//doleva
+			return field.fieldOnPosition(x-1,y);
 		
-		
-			if(sight == 0){
-				fd = fd.frontField();
-			}else if(sight == 1){
-				fd = fd.rightField();
-			}else if(sight == 2){
-				fd = fd.behindField();
-			}else if(sight == 3){
-				fd = fd.leftField();
-			}
-			
-	        if(fd != null){
-				if((fd.canSeize()) == true){
-					fd.seize(this);
-					field.leave();
-					field = fd;
-					return true;
-				}
-				else if(key > 0){
-					if((fd.open()) == true){
-					fd.seize(this);
-					field.leave();
-					field = fd;
-					key--;
-					return true;
-					}
-				}				
-			}else{
-				return false; //toto sem placl
-			}
-		
-		return false;
+		return null;
 	}
+	
+	// Pokus o vezmuti klice
+	public boolean takeKey(){
+		TableField fd = fieldBeforeSight();
+		if(fd.tryTakeKey()){
+			key++;		//Podarilo se vzit klic
+			return true;
+		}
+		else
+			return false;		
+	}
+	
+	//Pokus o otevreni brany
+	public boolean openGate(){
+		TableField fd = fieldBeforeSight();
+		if(key > 0 && fd.open()){
+			key--;
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	//Pohyb
+	public boolean move(){
+		TableField fd = fieldBeforeSight();
+        if(fd != null){
+			if((fd.canSeize()) == true){
+				fd.seize(this);		//Obsazeni policka
+				field.leave();      //Uklid stareho
+				x = fd.positionX();	//Nahrani novych souradnic
+				y = fd.positionY();
+				field = fd;
+				return true;
+			}				
+		}
+        return false;
+	}
+	
+	
 }

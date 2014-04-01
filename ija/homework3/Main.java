@@ -3,6 +3,11 @@
  * @file: Main.java
  */
 
+// Overeni nepovolene operaci napr. open na zed
+// Pri nalezeni chybovyho stavu zacit jasat a ukoncit hru
+// Fakt bych dal jako hlavu te konzoly neco trosku sympatictejsiho ale to je jen kosmeticka blbost
+// Cely to zacit poradne okomentovavat
+
 
 package ija.homework3;
 
@@ -15,13 +20,13 @@ public class Main {
 	public static void main(String[] args){
 
 		Console con = new Console();
+		String filename;
 		//zde se ceka dokud se neinicializuje hra
-		if(!con.InitGame()) //ukonceni hry
+		if((filename = con.InitGame()) == null ) //ukonceni hry
 			return;
 		
-		
 		FileReader fr = new FileReader();
-		Table table = fr.openFile("maze1");
+		Table table = fr.openFile(filename);
 		if(table == null)
 			return;
 
