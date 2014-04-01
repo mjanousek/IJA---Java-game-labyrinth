@@ -12,7 +12,7 @@ import ija.homework3.table.*;
 public class Main {
 	public static void main(String[] args){
 		FileReader fr = new FileReader();
-		Table table = fr.openFile("maze1s");
+		Table table = fr.openFile("maze2");
 		if(table == null)
 			return;
 		table.printTable();

@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import ija.homework3.objects.*;
-import ija.homework3.tape.*;
+import ija.homework3.table.*;
 
 class Input{
 
@@ -93,8 +93,8 @@ class Input{
     }
 
 
-
 /*
+
     public static void main (String[] args) {
         System.out.println("Spoustim Input.java");
 
