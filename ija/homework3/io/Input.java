@@ -12,6 +12,9 @@ import java.io.InputStreamReader;
 import ija.homework3.objects.*;
 import ija.homework3.table.*;
 
+
+
+
 class Input{
 
     String str;
@@ -38,9 +41,9 @@ class Input{
 
     public boolean ValidateInput(){
         if(this.str != null){
-            if(this.str.GetString.equals("game") || this.str.GetString.equals("show") || this.str.GetString.equals("close")
-                    || this.str.GetString.equals("go")) || this.str.GetString.equals("stop") || this.str.GetString.equals("left") || this.str.GetString.equals("right")
-                    || this.str.GetString.equals("take") ||this.str.GetString.equals("open") || this.str.GetString.equals("keys")){
+            if(this.str.equals("game") || this.str.equals("show") || this.str.equals("close")
+                    || this.str.equals("go") || this.str.equals("stop") || this.str.equals("left") || this.str.equals("right")
+                    || this.str.equals("take") ||this.str.equals("open") || this.str.equals("keys")){
                 //kontrola vsech prikazu, ktere je moznost zadat do prikazove radky
 
 
@@ -51,7 +54,9 @@ class Input{
             }
 
         }else{
+
             System.out.println("Nebyl zdan zadny prikaz.");
+            return false;
         }
     }
 
@@ -78,10 +83,10 @@ class Input{
 
     public boolean runCommand(){
         if(ValidateInput()){
-            if(this.str.ValidateHeadMove()){
+            if(this.ValidateHeadMove()){
                 //poslat prikaz hlave na vykonani pohybu
 
-            }else if(this.str.ValidateHeadCommand()){
+            }else if(this.ValidateHeadCommand()){
                 //poslat prikaz hlave na vykonani akce
             }else{
                 //vykonat prikaz hry
@@ -93,8 +98,8 @@ class Input{
     }
 
 
-/*
 
+/*
     public static void main (String[] args) {
         System.out.println("Spoustim Input.java");
 
