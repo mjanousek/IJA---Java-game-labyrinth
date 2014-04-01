@@ -3,21 +3,21 @@
  * @file: TapeHead.java
  */
 
-package ija.homework3.table;
+package ija.homework3.player;
 
-public class TableHead {
+public class Player {
 	protected int id;
 	protected int key = 0;
-	protected TableField field = null;
+	protected Player field = null;
 	
 	//Inicializace hlavy, nastavení jeho identifikatoru id a informace o umistení na policku f.
-	public TableHead(int id, TableField f){
+	public Player(int id, Player f){
 		this.id = id;
 		field = f;
 	}
 
 	//Vraci policko obsazene hlavou.
-	public TableField seizedField(){
+	public Player seizedField(){
 		return field;
 	}
 

@@ -4,11 +4,12 @@
  */
 
 package ija.homework3.table;
+import ija.homework3.player.*;
 
 public class Table {
 	
 	protected TableField[][] objectFD;
-	protected TableHead[] headFD;
+	protected Player[] figureFD;
 	int sizeX,sizeY;
 	int line = 0;
 	

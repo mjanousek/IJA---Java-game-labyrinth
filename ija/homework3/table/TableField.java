@@ -5,11 +5,13 @@
 
 package ija.homework3.table;
 
+import ija.homework3.player.*;
+
 public class TableField {
 
 	private int position;
 	private TableObject object = null;
-	private TableHead head = null;
+	private Player figure = null;
 	protected Table tape;
 	
 	//Inicializace policka p a umisteni objektu podle zadaneho formatu type
@@ -39,21 +41,21 @@ public class TableField {
 		return position;
 	}
 	
-	//	Obsadi policko hlavou head, pokud je to mozne. Vraci úspesnost operace (ob-
+	//	Obsadi policko hlavou figure, pokud je to mozne. Vraci úspesnost operace (ob-
 	//sazení se zdarilo/nezdarilo).
-	public boolean seize(TableHead head){
+	public boolean seize(Player figure){
 		if(canSeize()){
-			this.head = head;
+			this.figure = figure;
 			return true;
 		}
 		return false;
 	}
 	
 	//Uvolni policko field. Vraci hlavu, která byla na policku. Pokud bylo policko volne, vraci null.
-	public TableHead leave(){
-		if(head != null){
-			TableHead tmp = head;
-			head = null;
+	public Player leave(){
+		if(figure != null){
+			Player tmp = figure;
+			figure = null;
 			return tmp;
 		}
 
@@ -64,8 +66,8 @@ public class TableField {
 	//Podminka obsazení: policko neni obsazene a obsazeni dovoluje umísteny objekt.
 	public boolean canSeize(){
 		
-		if(object != null || head != null){
-			if(head != null)
+		if(object != null || figure != null){
+			if(figure != null)
 				return false;
 			else
 				return object.canSeize();
