@@ -41,7 +41,7 @@ public class FileReader {
   
 	//Naplni tabulku objekty
    public Table readFile(Scanner s){
-	   int x,y;
+	   int row,col;
 	   
 	   try{
 		   if(!s.hasNext()){	//Pokud neexistuje prvni radek chyba
@@ -50,24 +50,23 @@ public class FileReader {
 		   }
 			   
 		   String numbStr = s.next();
-		   x = Integer.parseInt(numbStr.substring(0, 2)); // X souradnice
+		   row = Integer.parseInt(numbStr.substring(0, 2)); // X souradnice
 		   if(!numbStr.substring(2,3).equals("x"))
-			   System.out.println("Missing size number X\n"+numbStr.substring(2,3));
-		   y = 	Integer.parseInt(numbStr.substring(3)); // Y souradnice
+			   System.out.println("Missing size number devider x insted"+numbStr.substring(2,3));
+		   col = Integer.parseInt(numbStr.substring(3)); // Y souradnice
 		   
-		   
-		      
-		   Table table =  new Table(x,y);
+		   //Prevod na pseudo matematicke souradnice x - sloupce y - radky
+		   Table table =  new Table(row,col);
 		   while(s.hasNext()){
 			   if(!table.insertLine(s.next()))
 				   return null;
 		   }  
 		   
-		   if(table.lineSize() != y){
-			   System.out.println("Wrong size Y\n");
+		   if(table.lineSize() != row){
+			   System.out.println("Wrong size rows\n");
 			   return null;		   
 		   }
-		   System.out.println("Maze size X:"+x+" Y:"+y);
+		   System.out.println("Maze size ROW:"+row+" COLOMNS:"+col);
 
 		   return table;
 	   }catch(NumberFormatException e){

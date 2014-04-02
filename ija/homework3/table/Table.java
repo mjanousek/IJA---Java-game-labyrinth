@@ -12,14 +12,14 @@ public class Table {
 	
 	protected TableField[][] objectFD;
 	protected Player[] figureFD;
-	protected int sizeX,sizeY;
+	protected int sizeRow,sizeCol;
 	protected int line = 0;
 	
 	//Konstruktor ktery inicializuje pole na danou velikost 
-	public Table(int x,int y){
-		objectFD = new TableField[x][y];
-		sizeX = x;
-		sizeY = y;
+	public Table(int row,int col){
+		objectFD = new TableField[row][col];
+		sizeRow = row;
+		sizeCol = col;
 	}
 	
 	//Vlozeni objetku do daneho radku
@@ -27,12 +27,12 @@ public class Table {
 		int i = 0;
 		int position = 0;
 		
-		if(format.length() != sizeX){
+		if(format.length() != sizeCol){
 			System.out.println("Spatna velikost souradnic X\n");
 			return false;
 		}
 		
-		if(line >= sizeY){
+		if(line >= sizeRow){
 			System.out.println("Spatna velikost souradnic Y\n");
 			return false;
 		}
@@ -40,7 +40,7 @@ public class Table {
 		while(i < format.length()){
 			if(format.charAt(i) != ' '){
 				String buffer = "" +format.charAt(i);
-				objectFD[position][line] = new TableField(this, position,line, buffer);
+				objectFD[line][position] = new TableField(this,line,position, buffer);
 				position++;
 			}
 			i++;
@@ -58,11 +58,11 @@ public class Table {
 	public Player createPlayer(){
 		Random rand = new Random();
 		TableField fd;			
-		for(int i = rand.nextInt(sizeY); i < sizeY;i++){		//Pokus o nahodne generovani polohy
-			for(int j = rand.nextInt(sizeX); j < sizeX; j++){
-				fd = objectFD[j][i];
-				if((fd.canSeize()) == true){	//Pozice x, y, policko a dale nahodne cislo reprezentujici pohled
-					Player pl = new Player(fd.positionX(),fd.positionY(), fd,rand.nextInt(3));
+		for(int i = rand.nextInt(sizeRow); i < sizeRow;i++){		//Pokus o nahodne generovani polohy
+			for(int j = rand.nextInt(sizeCol); j < sizeCol; j++){
+				fd = objectFD[i][j];
+				if((fd.canSeize()) == true && !fd.isFinish()){	//Pozice x, y, policko a dale nahodne cislo reprezentujici pohled
+					Player pl = new Player(fd.positionRow(),fd.positionCol(), fd,rand.nextInt(3));
 					fd.seize(pl);
 					return pl;
 				}
@@ -74,9 +74,9 @@ public class Table {
 
 	//Vypis bludiste
 	public void printTable(){
-		for(int i = 0; i < sizeY;i++){
-			for(int j = 0; j < sizeX; j++){
-				System.out.print(objectFD[j][i].printObj());
+		for(int i = 0; i < sizeRow;i++){
+			for(int j = 0; j < sizeCol; j++){
+				System.out.print(objectFD[i][j].printObj());
 			}
 			System.out.print('\n');
 		}	
@@ -85,7 +85,7 @@ public class Table {
 	/*Vrati policko na indexu i. Pokud je index mimo rozsah, vrati null*/
 	public TableField fieldAt(int x, int y){
 		//chybi osetreni hranic
-		if(x > sizeX || x < 0 || y > sizeY || y < 0)
+		if(x > sizeCol || x < 0 || y > sizeRow || y < 0)
 			return null;
 		return objectFD[x][y];
 	}

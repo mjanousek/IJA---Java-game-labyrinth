@@ -94,7 +94,7 @@ public class Console{
 	    				//return true;
 	    
 	    			case "keys":
-	    				System.out.println("You have: "+pl.keyCount()+" keys");
+	    				System.out.println("You have: "+pl.keyCount()+((pl.keyCount() == 1)?" key":" keys"));
 	    				return GameState.VALIDINPUT;
 	    			
 	    			case "take":
