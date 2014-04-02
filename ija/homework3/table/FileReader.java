@@ -42,18 +42,15 @@ public class FileReader {
 	//Naplni tabulku objekty
    public Table readFile(Scanner s){
 	   int x,y;
-	  
-	   if(!s.hasNextInt()){
-	   	  System.out.println("Missing size number\n");
-	   	  return null;
-	   }
-	   x = s.nextInt();
-	      
-	   if(!s.hasNextInt()){
-		  System.out.println("Missing size number\n");
-	   	  return null;
-	   }
-	   y = s.nextInt();
+	   
+
+	   String numbStr = s.next();
+	   x = Integer.parseInt(numbStr.substring(0, 2)); // 1st part
+	   if(!numbStr.substring(2,3).equals("x"))
+		   System.out.println("Missing size number X\n"+numbStr.substring(2,3));
+	   y = 	Integer.parseInt(numbStr.substring(3)); // 2nd part
+	   
+	   System.out.println("X:"+x+" Y:"+y+"\n");
 	      
 	   Table table =  new Table(x,y);
 	      
