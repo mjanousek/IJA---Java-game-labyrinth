@@ -94,8 +94,8 @@ public class TableField {
 	}
 	
 	// Funkce pro ziskani policka na dane pozici
-	public TableField fieldOnPosition(int x, int y){
-		return table.fieldAt(x,y);
+	public TableField fieldOnPosition(int row, int col){
+		return table.fieldAt(row,col);
 	}	
 	
 	// Pokus o vezmuti klice 

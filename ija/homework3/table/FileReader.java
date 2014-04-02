@@ -55,7 +55,6 @@ public class FileReader {
 			   System.out.println("Missing size number devider x insted"+numbStr.substring(2,3));
 		   col = Integer.parseInt(numbStr.substring(3)); // Y souradnice
 		   
-		   //Prevod na pseudo matematicke souradnice x - sloupce y - radky
 		   Table table =  new Table(row,col);
 		   while(s.hasNext()){
 			   if(!table.insertLine(s.next()))

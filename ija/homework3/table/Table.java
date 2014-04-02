@@ -28,12 +28,12 @@ public class Table {
 		int position = 0;
 		
 		if(format.length() != sizeCol){
-			System.out.println("Spatna velikost souradnic X\n");
+			System.out.println("Wrong size of columns\n");
 			return false;
 		}
 		
 		if(line >= sizeRow){
-			System.out.println("Spatna velikost souradnic Y\n");
+			System.out.println("Wrong size of rows\n");
 			return false;
 		}
 		
@@ -61,7 +61,7 @@ public class Table {
 		for(int i = rand.nextInt(sizeRow); i < sizeRow;i++){		//Pokus o nahodne generovani polohy
 			for(int j = rand.nextInt(sizeCol); j < sizeCol; j++){
 				fd = objectFD[i][j];
-				if((fd.canSeize()) == true && !fd.isFinish()){	//Pozice x, y, policko a dale nahodne cislo reprezentujici pohled
+				if((fd.canSeize()) == true && !fd.isFinish()){	//nahodne policko a at to neni finish
 					Player pl = new Player(fd.positionRow(),fd.positionCol(), fd,rand.nextInt(3));
 					fd.seize(pl);
 					return pl;
@@ -83,11 +83,11 @@ public class Table {
 	}
 
 	/*Vrati policko na indexu i. Pokud je index mimo rozsah, vrati null*/
-	public TableField fieldAt(int x, int y){
+	public TableField fieldAt(int row, int col){
 		//chybi osetreni hranic
-		if(x > sizeCol || x < 0 || y > sizeRow || y < 0)
+		if(col > sizeCol || col < 0 || row > sizeRow || row < 0)
 			return null;
-		return objectFD[x][y];
+		return objectFD[row][col];
 	}
 
 }
