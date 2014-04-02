@@ -24,7 +24,7 @@ public class Console{
     	while (id.equals("")){
     		System.out.println("Prosim inicializujte hru, nebo ju ukoncete.");
     		this.ReadInput();
-    		if(str.equals("exit"))
+    		if(str.equals("close"))
     			return null;
     		
     		id = str.substring(5);
@@ -34,6 +34,8 @@ public class Console{
     		//System.out.println("str = "+str+"|");
     		
     	}
+    	//System.out.println("Vitejte ve hre "+id+"!");
+    	System.out.println(GameState.WELCOME);
     	str = "";
     	return id;
     }
@@ -46,11 +48,11 @@ public class Console{
 		
     	//------------------------------------------------
     	
-    	while(!str.equals("exit")){
-    		System.out.println("#-------------------------------#");
+    	while(!str.equals("close")){
+    		System.out.print(">> ");
     		ReadInput();
     		if(ValidateInput()){
-    			System.out.println("validateinput");
+    			//System.out.println("validateinput");
     			if(!runCommand())
     				System.out.println("Prikaz se nepodarilo provezt.");
     			
@@ -119,6 +121,7 @@ public class Console{
         }
     }
 
+    //nevyuzita funkce
     public boolean ValidateHeadMove(){
         if(this.str.equals("right") || this.str.equals("left")){// || move.equals("move") || move.equals("stop")){
             //System.out.println("vadini pohyb");
@@ -129,6 +132,7 @@ public class Console{
         }
     }
 
+    //nevyuzivana funkce
     public boolean ValidateHeadCommand(){
         if(this.str.equals("keys") || this.str.equals("open") || this.str.equals("take")){
             //
@@ -157,7 +161,7 @@ public class Console{
 	    				//return true;
 	    
 	    			case "keys":
-	    				System.out.println("You have:"+pl.keyCount()+"keys");
+	    				System.out.println("You have: "+pl.keyCount()+" keys");
 	    				return true;
 	    			
 	    			case "take":
@@ -174,7 +178,7 @@ public class Console{
 	    			case "show":
 	    				table.printTable();
 	    				return true;
-	    			case "close":
+	    			//case "close":
 	    				
 	    				//return true;
 	    			default:
@@ -183,4 +187,50 @@ public class Console{
     	    
             return false;
     }
+    
+    // hlasky o stavu hry
+    public enum GameState {
+        WALL {
+            @Override
+            public String toString() {
+                return "Nemuzete jit dopredu, je pred vami zed.";
+            }
+        },
+        WELCOME {
+        	@Override
+        	public String toString() {
+                return "Vitejte ve hre!";
+            }
+        },
+        NULLKEYS {
+            @Override
+            public String toString() {
+            	return "Nemate zadne klice.";
+            }
+        };
+    }
+    
+    //chybove hlasky
+    public enum GameError {
+        WALL {
+            @Override
+            public String toString() {
+                return "Nemuzete jit dopredu, je pred vami zed.";
+            }
+        },
+        WELCOME {
+        	@Override
+        	public String toString() {
+                return "Vitejte ve hre!";
+            }
+        },
+        NULLKEYS {
+            @Override
+            public String toString() {
+            	return "Nemate zadne klice.";
+            }
+        };
+    }
+    
+    
 }

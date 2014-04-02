@@ -12,8 +12,8 @@ public class Table {
 	
 	protected TableField[][] objectFD;
 	protected Player[] figureFD;
-	int sizeX,sizeY;
-	int line = 0;
+	protected int sizeX,sizeY;
+	protected int line = 0;
 	
 	//Konstruktor ktery inicializuje pole na danou velikost 
 	public Table(int x,int y){
@@ -23,18 +23,18 @@ public class Table {
 	}
 	
 	//Vlozeni objetku do daneho radku
-	public void insertLine(String format){
+	public boolean insertLine(String format){
 		int i = 0;
 		int position = 0;
 		
-		if(format.length() > sizeX){
-			System.out.println("Pretahl jsi po X!\n");
-			return;
+		if(format.length() != sizeX){
+			System.out.println("Spatna velikost souradnic X\n");
+			return false;
 		}
 		
 		if(line >= sizeY){
-			System.out.println("Pretahl jsi po Y!\n");
-			return;
+			System.out.println("Spatna velikost souradnic Y\n");
+			return false;
 		}
 		
 		while(i < format.length()){
@@ -46,8 +46,13 @@ public class Table {
 			i++;
 		}	
 		line++;
+		return true;
 	}
 	
+	//Vraci cislo ktere znaci pocet skutecne nactenych radku
+	public int lineSize(){
+		return line;
+	}
 	
 	//Vytvoreni hrace na urcite pozici
 	public Player createPlayer(){
@@ -56,8 +61,8 @@ public class Table {
 		for(int i = rand.nextInt(sizeY); i < sizeY;i++){		//Pokus o nahodne generovani polohy
 			for(int j = rand.nextInt(sizeX); j < sizeX; j++){
 				fd = objectFD[j][i];
-				if((fd.canSeize()) == true){
-					Player pl = new Player(fd.positionX(),fd.positionY(), fd);
+				if((fd.canSeize()) == true){	//Pozice x, y, policko a dale nahodne cislo reprezentujici pohled
+					Player pl = new Player(fd.positionX(),fd.positionY(), fd,rand.nextInt(3));
 					fd.seize(pl);
 					return pl;
 				}
