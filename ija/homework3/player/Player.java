@@ -16,10 +16,11 @@ public class Player {
 
 	
 	//Inicializace hlavy, nastavení jeho identifikatoru id a informace o umistení na policku f.
-	public Player(int x,int y, TableField f){
+	public Player(int x,int y, TableField f,int sight){
 		this.x = x;
 		this.y = y;
 		field = f;
+		this.sight = sight; 
 	}
 
 	//Vraci policko obsazene hlavou.

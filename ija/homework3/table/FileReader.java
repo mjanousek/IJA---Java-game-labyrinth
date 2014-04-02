@@ -43,23 +43,37 @@ public class FileReader {
    public Table readFile(Scanner s){
 	   int x,y;
 	   
+	   try{
+		   if(!s.hasNext()){	//Pokud neexistuje prvni radek chyba
+			   System.out.println("No size was found\n");
+			   return null;
+		   }
+			   
+		   String numbStr = s.next();
+		   x = Integer.parseInt(numbStr.substring(0, 2)); // X souradnice
+		   if(!numbStr.substring(2,3).equals("x"))
+			   System.out.println("Missing size number X\n"+numbStr.substring(2,3));
+		   y = 	Integer.parseInt(numbStr.substring(3)); // Y souradnice
+		   
+		   
+		      
+		   Table table =  new Table(x,y);
+		   while(s.hasNext()){
+			   if(!table.insertLine(s.next()))
+				   return null;
+		   }  
+		   
+		   if(table.lineSize() != y){
+			   System.out.println("Spatna velikost souradnic Y\n");
+			   return null;		   
+		   }
+		   System.out.println("Maze size X:"+x+" Y:"+y+"\n");
 
-	   String numbStr = s.next();
-	   x = Integer.parseInt(numbStr.substring(0, 2)); // 1st part
-	   if(!numbStr.substring(2,3).equals("x"))
-		   System.out.println("Missing size number X\n"+numbStr.substring(2,3));
-	   y = 	Integer.parseInt(numbStr.substring(3)); // 2nd part
-	   
-	   System.out.println("X:"+x+" Y:"+y+"\n");
-	      
-	   Table table =  new Table(x,y);
-	      
-	   System.out.println(x + " "+ y); 
-	   while(s.hasNext()){
-		   table.insertLine(s.next());
-	   }  
-	  
-	   return table;
+		   return table;
+	   }catch(NumberFormatException e){
+		   System.out.println("Wrong number format\n");
+		   return null;
+	   }
    }
 }
 
