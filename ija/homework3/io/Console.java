@@ -183,48 +183,4 @@ public class Console{
     	    
             return false;
     }
-
-
-
-/*
-    public static void main (String[] args) {
-        System.out.println("Spoustim Input.java");
-
-        //  prompt the user to enter their name
-
-        Tape t1 = new Tape(9, 2, "w p p p p p p p g");
-        TapeHead h;
-        h = t1.createHead(1);
-        System.out.println("Hlava na pozici:" + h.seizedField().position());
-
-        System.out.print("Zadat pohyb hrace: ");
-
-
-        Input input = new Input();
-        input.ReadInput();
-
-        //text = ReadInput();
-
-        while(!input.GetString().equals("q")){
-            if(!input.ValidateMove()){
-                System.out.println("Posim zkoste zadat znovu.");
-                input.ReadInput();
-            }else{
-                if(input.GetString().equals("r")){
-                    System.out.println("posun doprava");
-                    h.moveRight();
-                }else if(input.GetString().equals("l")){
-                    System.out.println("posun doleva");
-                    h.moveLeft();
-                }
-                System.out.println("Hlava na pozici:" + h.seizedField().position());
-                input.ReadInput();
-            }
-
-
-        }
-
-        //  open up standard input
-        //System.out.println("Pohyb: " + text + "|");
-    }*/
 }

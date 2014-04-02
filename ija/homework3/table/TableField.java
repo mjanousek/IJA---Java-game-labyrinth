@@ -84,10 +84,10 @@ public class TableField {
 	// Vypis objektu na policku dle symbolu
 	public char printObj(){
 
-		if(object != null)
-			return object.symbolPrint();
-		else if(figure != null)
+		if(figure != null)
 			return figure.symbolSight();
+		else if(object != null)
+			return object.symbolPrint();
 		else 
 			return '.';
 	}
