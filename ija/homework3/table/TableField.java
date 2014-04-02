@@ -5,22 +5,23 @@
 
 package ija.homework3.table;
 
+import ija.homework3.objects.Finish;
 import ija.homework3.player.*;
 
 public class TableField {
 
-	private int x;
-	private int y;
+	private int row;
+	private int col;
 	private TableObject object = null;
 	private Player figure = null;
 	protected Table table;
 	
 	//Inicializace policka p a umisteni objektu podle zadaneho formatu type
-	public TableField(Table table, int x,int y, String type){
+	public TableField(Table table, int row,int col, String type){
 		object = TableObject.create(type);
 		this.table = table;
-		this.x = x;
-		this.y = y;
+		this.row = row;
+		this.col = col;
 	}
 		
 	//Test, zda je možné otevrít objekt na polcku. Podmínka: polícko obsahuje objekt, který lze otevrit.
@@ -32,11 +33,11 @@ public class TableField {
 	}
 	
 	//Vrací pozici policka.
-	public int positionX(){
-		return x;
+	public int positionRow(){
+		return row;
 	}
-	public int positionY(){
-		return y;
+	public int positionCol(){
+		return col;
 	}
 	
 	//	Obsadi policko hlavou figure, pokud je to mozne. Vraci úspesnost operace (ob-
@@ -93,8 +94,8 @@ public class TableField {
 	}
 	
 	// Funkce pro ziskani policka na dane pozici
-	public TableField fieldOnPosition(int x, int y){
-		return table.fieldAt(x,y);
+	public TableField fieldOnPosition(int row, int col){
+		return table.fieldAt(row,col);
 	}	
 	
 	// Pokus o vezmuti klice 
@@ -107,5 +108,12 @@ public class TableField {
 		}
 		else
 			return false;
+	}
+	
+	public boolean isFinish(){
+		if(object == null)
+			return false;
+		else
+			return (object instanceof Finish);
 	}
 }

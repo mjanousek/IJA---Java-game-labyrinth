@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import ija.homework3.objects.*;
 import ija.homework3.player.Player;
 import ija.homework3.table.*;
 
@@ -22,19 +21,18 @@ public class Console{
     
     public String InitGame(){
     	while (id.equals("")){
-    		System.out.println("Prosim inicializujte hru, nebo ju ukoncete.");
+    		System.out.println(GameState.INTRO);
+    		System.out.print(">>>");
     		this.ReadInput();
-    		if(str.equals("close"))
+    		if(str.equals("close")){
+    			System.out.println(GameState.CLOSE);
     			return null;
-    		
+    		}
+    			
     		id = str.substring(5);
-    		str = str.substring(0,4);
-    		if(!str.equals("game")) //to druhe nemusi byt prazdne?
-    			id = "";
-    		//System.out.println("str = "+str+"|");
-    		
+    		if(!str.substring(0,4).equals("game")) 
+    			id = "";    		
     	}
-    	//System.out.println("Vitejte ve hre "+id+"!");
     	System.out.println(GameState.WELCOME);
     	str = "";
     	return id;
@@ -43,28 +41,18 @@ public class Console{
     public void RunGame(Table table){
     	this.table = table; 
 		this.pl = table.createPlayer();
-		//pl.rotateLeft();
-		//pl.rotateLeft();
-		
     	//------------------------------------------------
-    	
+		GameState status;
     	while(!str.equals("close")){
-    		System.out.print(">> ");
+    		System.out.print(">>>");
     		ReadInput();
-    		if(ValidateInput()){
-    			//System.out.println("validateinput");
-    			if(!runCommand())
-    				System.out.println("Prikaz se nepodarilo provezt.");
-    			
-    				
-    		}else{
-    			System.out.println("Neplatny prikaz, -h pro napovedu.");
-    		}
-    		
+    		status = runCommand();
+    		System.out.println(status);
+    		if(status == GameState.CLOSE || status == GameState.WINNER){
+    			break;
+    		}	
     	}
-    	
-    	System.out.println("#   konec   #");
-		
+    	System.out.println("#THE END#");
     }
     
 
@@ -82,130 +70,112 @@ public class Console{
         }
     }
 
-
-
-    public String GetString(){
-        return str;
-    }
-
-    public boolean ValidateInput(){
-        if(this.str != null){
-        	  if(str != null){
-                  
-                  switch(str){
-                      case "show":
-                      case "close":
-                      case "go":
-                      case "stop":
-                      case "left":
-                    	  
-                      case "right":
-                      case "take":
-                      case "open":
-                      case "keys":
-                          return true;
-                      default:
-                          return false;
-                         
-                  }
-              }else{
-
-                  System.out.println("Nebyl zadan zadny prikaz.");
-                  return false;
-              }
-
-        }else{
-
-            System.out.println("Nebyl zadan zadny prikaz.");
-            return false;
-        }
-    }
-
-    //nevyuzita funkce
-    public boolean ValidateHeadMove(){
-        if(this.str.equals("right") || this.str.equals("left")){// || move.equals("move") || move.equals("stop")){
-            //System.out.println("vadini pohyb");
-            return true;
-        }else{
-            //System.out.println("ne vadini pohyb");
-            return false;
-        }
-    }
-
-    //nevyuzivana funkce
-    public boolean ValidateHeadCommand(){
-        if(this.str.equals("keys") || this.str.equals("open") || this.str.equals("take")){
-            //
-            return true;
-        }else{
-            //
-            return false;
-        }
-    }
-
-
-    public boolean runCommand(){
+    public GameState runCommand(){
            	switch(str){
             		//-------------------------------------------prikazy hrace
             		case "left":
             			pl.rotateLeft();
-	    				return true;
+	    				return GameState.VALIDINPUT;
 	    			case "right":
             			pl.rotateRight();
-	    				return true;
+	    				return GameState.VALIDINPUT;
 	    			case "go":
-	    				pl.move();
-	    				return true;
+	    				if(pl.move()){
+	    					if(pl.isWinner())
+	    						return GameState.WINNER;
+	    					else
+	    						return GameState.VALIDINPUT;
+	    				}
+	    				else
+	    					return GameState.CANTMOVE;
+	    					
 	    			case "stop":
 	    				
 	    				//return true;
 	    
 	    			case "keys":
-	    				System.out.println("You have: "+pl.keyCount()+" keys");
-	    				return true;
+	    				System.out.println("You have: "+pl.keyCount()+((pl.keyCount() == 1)?" key":" keys"));
+	    				return GameState.VALIDINPUT;
 	    			
 	    			case "take":
-	    				pl.takeKey();
-	    				return true;
+	    				if(pl.takeKey())
+	    					return GameState.VALIDINPUT;
+	    				else
+	    					return GameState.NOKEY;
 	    			
 	    			case "open":
-	    				pl.openGate();
-	    				return true;
+	    				if(pl.keyCount() <= 0)
+	    					return GameState.NULLKEY;
+	    				if(pl.openGate())
+	    					return GameState.VALIDINPUT;
 	    			//-------------------------------------------herni prikazy
-	    			//case "game":
 	    				
-	    				//return true;
 	    			case "show":
 	    				table.printTable();
-	    				return true;
-	    			//case "close":
-	    				
-	    				//return true;
+	    				return GameState.VALIDINPUT;
+	    			case "close":
+	    				return GameState.CLOSE;
 	    			default:
 	    				break;
 	        }
     	    
-            return false;
+            return GameState.INVALIDINPUT;
     }
     
     // hlasky o stavu hry
     public enum GameState {
-        WALL {
+    	INTRO {
+    		@Override
+    		public String toString() {
+    			return "   Welcome in Labyrint escape v1.1\n Before start choose the game you want.";
+    		}
+    	},
+    	WELCOME {
+    		@Override
+    		public String toString() {
+    			return "Let the game begin!";
+    		}
+    	},
+        CANTMOVE {
             @Override
             public String toString() {
-                return "Nemuzete jit dopredu, je pred vami zed.";
+                return "You can't move, field before you is blocked!";
             }
         },
-        WELCOME {
+        NOKEY {
         	@Override
         	public String toString() {
-                return "Vitejte ve hre!";
-            }
+        		return "You can't take key, key's not found!";
+        	}
         },
-        NULLKEYS {
+        NULLKEY {
+        	@Override
+        	public String toString() {
+        		return "You can't unlock, you don't have keys!";
+        	}
+        },
+        VALIDINPUT {
+        	@Override
+        	public String toString() {
+        		return "Valid input";
+        	}
+        },
+        WINNER {
             @Override
             public String toString() {
-            	return "Nemate zadne klice.";
+            	return "You are the WINNER!!!!";
+            }
+        },
+        CLOSE {
+        	@Override
+        	public String toString() {
+        		return "See you later aligator...";
+        	}
+        },
+        INVALIDINPUT {
+            @Override
+            public String toString() {
+            	return "Invalid input";
             }
         };
     }
@@ -231,6 +201,4 @@ public class Console{
             }
         };
     }
-    
-    
 }

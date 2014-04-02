@@ -8,17 +8,17 @@ package ija.homework3.player;
 import ija.homework3.table.*;
 
 public class Player {
-	protected int x;
-	protected int y;
+	protected int row;
+	protected int col;
 	protected int key = 0;
 	protected TableField field = null;
 	protected int sight = 0; //inicializovano nahoru
 
 	
 	//Inicializace hlavy, nastavení jeho identifikatoru id a informace o umistení na policku f.
-	public Player(int x,int y, TableField f,int sight){
-		this.x = x;
-		this.y = y;
+	public Player(int row,int col, TableField f,int sight){
+		this.row = row;
+		this.col = col;
 		field = f;
 		this.sight = sight; 
 	}
@@ -55,7 +55,7 @@ public class Player {
 		switch(sight){
 		case 0: return '^';
 		case 1: return '>';
-		case 2: return 'V';
+		case 2: return 'v';
 		case 3: return '<';
 		default: return 'X';		
 		}
@@ -64,13 +64,13 @@ public class Player {
 	//Vrati policko na ktere se figurka diva
 	public TableField fieldBeforeSight(){
 		if(sight == 0) 		//nahoru
-			return field.fieldOnPosition(x,y-1);
+			return field.fieldOnPosition(row-1,col);
 		else if(sight == 1)	//doprava
-			return field.fieldOnPosition(x+1,y);
+			return field.fieldOnPosition(row,col+1);
 		else if(sight == 2)	//dolu
-			return field.fieldOnPosition(x,y+1);
+			return field.fieldOnPosition(row+1,col);
 		else if(sight == 3)	//doleva
-			return field.fieldOnPosition(x-1,y);
+			return field.fieldOnPosition(row,col-1);
 		
 		return null;
 	}
@@ -104,8 +104,8 @@ public class Player {
 			if((fd.canSeize()) == true){
 				fd.seize(this);		//Obsazeni policka
 				field.leave();      //Uklid stareho
-				x = fd.positionX();	//Nahrani novych souradnic
-				y = fd.positionY();
+				row= fd.positionRow();	//Nahrani novych souradnic
+				col = fd.positionCol();
 				field = fd;
 				return true;
 			}				
@@ -113,5 +113,8 @@ public class Player {
         return false;
 	}
 	
-	
+	//Overeni vyhry
+	public boolean isWinner(){
+		return field.isFinish();
+	}
 }

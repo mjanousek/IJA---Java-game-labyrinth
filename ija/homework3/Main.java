@@ -11,7 +11,7 @@
 
 package ija.homework3;
 
-import ija.homework3.player.Player;
+//import ija.homework3.player.Player;
 import ija.homework3.io.Console;
 import ija.homework3.table.*;
 
