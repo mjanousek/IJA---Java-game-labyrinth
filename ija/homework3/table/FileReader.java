@@ -64,10 +64,10 @@ public class FileReader {
 		   }  
 		   
 		   if(table.lineSize() != y){
-			   System.out.println("Spatna velikost souradnic Y\n");
+			   System.out.println("Wrong size Y\n");
 			   return null;		   
 		   }
-		   System.out.println("Maze size X:"+x+" Y:"+y+"\n");
+		   System.out.println("Maze size X:"+x+" Y:"+y);
 
 		   return table;
 	   }catch(NumberFormatException e){

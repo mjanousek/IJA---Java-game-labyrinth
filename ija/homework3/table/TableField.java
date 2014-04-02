@@ -5,6 +5,7 @@
 
 package ija.homework3.table;
 
+import ija.homework3.objects.Finish;
 import ija.homework3.player.*;
 
 public class TableField {
@@ -107,5 +108,12 @@ public class TableField {
 		}
 		else
 			return false;
+	}
+	
+	public boolean isFinish(){
+		if(object == null)
+			return false;
+		else
+			return (object instanceof Finish);
 	}
 }

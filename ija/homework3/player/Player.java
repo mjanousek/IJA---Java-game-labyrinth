@@ -113,5 +113,8 @@ public class Player {
         return false;
 	}
 	
-	
+	//Overeni vyhry
+	public boolean isWinner(){
+		return field.isFinish();
+	}
 }
