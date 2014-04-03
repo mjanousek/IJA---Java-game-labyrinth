@@ -173,6 +173,7 @@ public class Console{
     
     /**
      * Enumerace GameState je vycet stavu hry, do kterych se da dostat.
+     * 
      */
     public enum GameState {
     	INTRO {

@@ -44,7 +44,7 @@ public class Player {
 	/**
 	 * Prida urcity pocet klidu hraci.
 	 * 
-	 * @param n		- udava pocet klicu
+	 * @param int n		- udava pocet klicu
 	 */
 	public void addKeys(int n){
 		key += n;
