@@ -1,11 +1,11 @@
-/*
+/**
+ * Trida slouzici jako rozhrani pro dalsi funkcnost 
  * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
- * @file: Main.java
- */
+ * 
+ **/
 
-// Overeni nepovolene operaci napr. open na zed
-// Pri nalezeni chybovyho stavu zacit jasat a ukoncit hru
-// Fakt bych dal jako hlavu te konzoly neco trosku sympatictejsiho ale to je jen kosmeticka blbost
+
+
 // Cely to zacit poradne okomentovavat
 
 
