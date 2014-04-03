@@ -1,5 +1,5 @@
 /*
- * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
+ * @author: Martin Janousek xjanou14, Marek Fiala, xfiala46
  * @file: Finish.java
  */
 

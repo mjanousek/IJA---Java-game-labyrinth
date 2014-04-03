@@ -1,7 +1,7 @@
 /**
  * Trida slouzici jako rozhrani pro dalsi funkcnost 
  * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
- * 
+ * @version: 1.1
  **/
 
 
@@ -19,6 +19,11 @@ import ija.homework3.io.*;
 
 
 public class Main {
+	/**
+	 *Metoda inicializuje prvni fazi hry, nacte bludiste ze souboru a preda rizeni tride Console 
+	 *@param String[] args 		- argumenty programu
+	 *
+	 */
 	public static void main(String[] args){
 		
         try {	
@@ -27,12 +32,12 @@ public class Main {
 			//zde se ceka dokud se neinicializuje hra
 			if((filename = con.InitGame()) == null ) //ukonceni hry
 				return;
-			
+			//nacteni blidiste ze souboru
 			FileReader fr = new FileReader();
 			Table table = fr.openFile(filename);
 			if(table == null)
 				return;
-	
+			//predani rizeni consoli
 			con.RunGame(table);
 	    } catch (IOException ioe) {
 	        System.out.println("Cannot read order");

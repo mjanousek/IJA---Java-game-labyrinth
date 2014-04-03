@@ -1,4 +1,6 @@
-/*
+/** 
+ * Abstraktni trida slouzici k implementaci trid Finish, Gate, Key, Wall,
+ * ktere od teto tridy dedi.
  * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
  * @file: TapeObject.java
  */
@@ -9,17 +11,34 @@ import ija.homework3.objects.*;
 
 public abstract class TableObject {
 	
-	//Test, zda je mozne obsadit policko obsahujici tento objekt
+	/**
+	 * Metoda zjistujici zda lze objekt obsadit.
+	 * @return boolean		- vraci true, nebo false podle toho zda lze objekt obsadit
+	 */
 	public abstract boolean canSeize();
 	
+	/**
+	 * Metoda slouzici pro vypis znaku, ktery reprezentuje dany objekt.
+	 * @return char			- vraci char reprezentujici dany objekt
+	 */
 	public abstract char symbolPrint();
 	
-	//Otevira objekt. Vraci vysledek operace (zda se podarilo objekt otevrit)
+	/**
+	 * Metoda otevirajici objekt.
+	 * @return boolean 		- vraci true, nebo false v pripade, ze objekt nelze otevrit
+	 */
 	public abstract boolean open();
 	
-	//Test, zda je mozne odemknout objekt. Podmínka zavisi na implementujici tride.
+	/**
+	 * Metoda zjistujici, zda objekt lze otevrit.
+	 * @return boolean 		- vraci true nebo false podle toho zda objekt lze nebo nelze otevrit
+	 */
 	public abstract boolean canBeOpen();
 	
+	/**
+	 * Metoda zjistujici, zda objekt lze otevrit.
+	 * @return boolean 		- vraci true nebo false podle toho zda objekt lze nebo nelze sebrat.
+	 */
 	public abstract boolean canBeTaken();
 	
 	/*	Vytvori a vrati objekt podle zadaného typu format. Popis retezce format:
@@ -28,6 +47,11 @@ public abstract class TableObject {
 	 * K = Key
 	 * F = Finish
 	 * ostatni pripady null
+	 */
+	/**
+	 * Metoda vytvarejici
+	 * @param format
+	 * @return
 	 */
 	public static TableObject create(String format){
 		if((format.compareTo("W")) == 0){

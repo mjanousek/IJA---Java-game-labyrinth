@@ -1,7 +1,8 @@
-/*
- * @author: Marek Fiala, xfiala46
- * @file: TapeHead.java
- */
+/**
+ * Trida ovladajici samotnou hru, nacitani samotnych prikazu a jejich spousteni 
+ * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
+ * @version: 1.1
+ **/
 
 package ija.homework3.io;
 
@@ -14,15 +15,23 @@ import ija.homework3.table.*;
 
 public class Console{
 
-    String str = null;
+    String str = "";
     Table table;
     Player pl;
     BufferedReader br;
     
+    /**
+     * Metoda Console() vytvori prostredi pro nacitani prikazu. (konstruktor)
+     */
     public Console(){
     	br = new BufferedReader(new InputStreamReader(System.in));
     }
     
+    /**
+     * Metoda InitGame inicializuje hru. Ceka na prikaz game name, kde name je idintifikatorm hry.
+     * @return Vraci identifikator hry typu String.
+     * @throws IOException
+     */
     public String InitGame() throws IOException{
     	String id = "";
     	while (id.equals("")){
@@ -39,10 +48,16 @@ public class Console{
     			id = "";    		
     	}
     	System.out.println(GameState.WELCOME);
-    	str = null;
+    	str = "";
     	return id;
     }
     
+    /**
+     * Metoda vola metodu ReadInput pro nacteni prikazu, metodu runCommand pro spusteni prikazu a
+     * kontroluje, zda nebyl zadan prikaz close
+     * @param table 		- zde je predano nactene bludiste
+     * @throws IOException
+     */
     public void RunGame(Table table) throws IOException {
     	this.table = table; 
 		this.pl = table.createPlayer();
@@ -60,13 +75,20 @@ public class Console{
     	}
     }
     
-
+    /**
+     * Metoda ReadInput() nacte radek ze standartniho vstupu
+     * @throws IOException
+     */
     public void ReadInput() throws IOException{
         str = null;
         str = br.readLine();
     }
 
-    //Metoda pro chuzi pomoci sekvence go-stop
+    //	Metoda pro chuzi pomoci sekvence go-stop
+    /**
+     * Metoda foUntilStop() slouzi pro chuzi pomoci sekvence go-stop.
+     * @return GameState 		- vraci uspesnost prikazu
+     */
     public GameState goUntilStop(){
     	while(true){
     		if(pl.move() == false)
@@ -90,7 +112,10 @@ public class Console{
 			System.out.println("Move for one position");
     	}
     }
-    
+    /**
+     * Metoda unCommand() spousti prikaz nacteny ze standartniho vstupu a ulozeny v instancni promenne str
+     * @return GameState 		-
+     */
     public GameState runCommand(){
            	switch(str){
             		//-------------------------------------------prikazy hrace
@@ -144,6 +169,11 @@ public class Console{
     }
     
     // hlasky o stavu hry
+    /**
+     * Enum GameState je vycet stavu hry, do kterych se da dostat.
+     * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
+     *
+     */
     public enum GameState {
     	INTRO {
     		@Override
