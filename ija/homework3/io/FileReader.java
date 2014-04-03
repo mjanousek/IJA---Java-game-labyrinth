@@ -4,8 +4,9 @@
  */
 
 
-package ija.homework3.table.*;
+package ija.homework3.io;
 
+import ija.homework3.table.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

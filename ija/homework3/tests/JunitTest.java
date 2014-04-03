@@ -79,7 +79,7 @@ public class JunitTest {
         t1.insertLine("W.G.W");
         t1.insertLine("WWWWW");
         
-        char pohled, puvodni;
+        char sight, before;
         Player h1;
         TableField f1;
         
@@ -88,20 +88,20 @@ public class JunitTest {
         f1 = h1.seizedField();
         assertNotNull("Hlava ma ulozene pole.", f1);
         
-        puvodni = pohled = h1.symbolSight();
+        before = sight = h1.symbolSight();
         h1.rotateLeft();
-        assertNotEquals("Hrac se otocil doleva.", pohled, h1.symbolSight());
-        pohled = h1.symbolSight();
+        assertNotEquals("Hrac se otocil doleva.", sight, h1.symbolSight());
+        sight = h1.symbolSight();
         h1.rotateLeft();
-        assertNotEquals("Hrac se otocil podruhe doleva.", pohled, h1.symbolSight());
+        assertNotEquals("Hrac se otocil podruhe doleva.", sight, h1.symbolSight());
         
-        pohled = h1.symbolSight();
+        sight = h1.symbolSight();
         h1.rotateRight();
-        assertNotEquals("Hrac se otocil doprava.", pohled, h1.symbolSight());
-        pohled = h1.symbolSight();
+        assertNotEquals("Hrac se otocil doprava.", sight, h1.symbolSight());
+        sight = h1.symbolSight();
         h1.rotateRight();
-        assertNotEquals("Hrac se otocil podruhe doprava.", pohled, h1.symbolSight());
-        assertEquals("Hrac se diva do puvodniho smeru.", puvodni, h1.symbolSight());
+        assertNotEquals("Hrac se otocil podruhe doprava.", sight, h1.symbolSight());
+        assertEquals("Hrac se diva do puvodniho smeru.", before, h1.symbolSight());
     
     }
 
