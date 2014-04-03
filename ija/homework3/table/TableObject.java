@@ -49,9 +49,13 @@ public abstract class TableObject {
 	 * ostatni pripady null
 	 */
 	/**
-	 * Metoda vytvarejici
-	 * @param format
-	 * @return
+	 * Metoda vytvarejici instanci objektu podle zadaneho parametru.
+	 * @param format		- urcuje objekt, ktery ma byt vytvoren
+	 * W = Wall
+	 * G = Gate
+	 * K = Key
+	 * F = Finish
+	 * @return TableObject 	- vraci instanci vytvoreneho objektu
 	 */
 	public static TableObject create(String format){
 		if((format.compareTo("W")) == 0){
