@@ -4,7 +4,7 @@
  */
 
 
-package ija.homework3.table;
+package ija.homework3.table.*;
 
 import java.io.File;
 import java.io.FileInputStream;

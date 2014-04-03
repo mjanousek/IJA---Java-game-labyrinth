@@ -14,8 +14,8 @@ package ija.homework3;
 //import ija.homework3.player.Player;
 import java.io.IOException;
 
-import ija.homework3.io.Console;
-import ija.homework3.table.*;
+import ija.homework3.table.Table;
+import ija.homework3.io.*;
 
 
 public class Main {
