@@ -18,7 +18,7 @@ import ija.homework3.io.*;
 public class Main {
 	/**
 	 *Metoda inicializuje prvni fazi hry, nacte bludiste ze souboru a preda rizeni tride Console 
-	 *@param String[] args 		- argumenty programu
+	 *@param args 		- argumenty programu
 	 *
 	 */
 	public static void main(String[] args){
