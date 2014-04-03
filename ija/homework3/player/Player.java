@@ -41,29 +41,50 @@ public class Player {
 		return field;
 	}
 
-	//Prida hlave n klicu
+	/**
+	 * Prida urcity pocet klidu hraci.
+	 * 
+	 * @param int n		- udava pocet klicu
+	 */
 	public void addKeys(int n){
 		key += n;
 	}
 	
+	/**
+	 * Vrati pocet klicu.
+	 * 
+	 * @return pocet klicu
+	 */
 	public int keyCount(){
 		return key;
 	}
 
-	//rotace vlevo
+	/**
+	 * Zajistuje rotaci hrace vlevo
+	 */
 	public void rotateLeft(){
 		if(--sight < 0)
 			sight = 3;
 	}
 	
-	//rotace vpravo
+	/**
+	 * Zajistuje rotaci hrace vpravo
+	 */
 	public void rotateRight(){
 		if(++sight > 3)
 			sight = 0;
 	}
 	
-	//Vraci symbol podle toho kam se hrac diva
-	//0^ 1> 2V 3< 4^
+	/**
+	 * Vraci symbol podle toho, kam se hrac diva
+	 * 
+	 * 0	- ^
+	 * 1	- >
+	 * 2	- v
+	 * 3	- <	
+	 * 
+	 * @return znak, kam se hrac diva
+	 */
 	public char symbolSight(){
 		switch(sight){
 		case 0: return '^';
@@ -74,7 +95,11 @@ public class Player {
 		}
 	}
 	
-	//Vrati policko na ktere se figurka diva
+	
+	/**
+	 * Vrati polecko kam se hrac diva. (Policko pred nim.)
+	 * @return	policka pred hracem
+	 */
 	public TableField fieldBeforeSight(){
 		if(sight == 0) 		//nahoru
 			return field.fieldOnPosition(row-1,col);
@@ -88,7 +113,10 @@ public class Player {
 		return null;
 	}
 	
-	// Pokus o vezmuti klice
+	/**
+	 * Metoda, ktera sebere klic z policka.
+	 * @return true pri uspechu, false pri neuspechu
+	 */
 	public boolean takeKey(){
 		TableField fd = fieldBeforeSight();
 		if(fd.tryTakeKey()){
@@ -99,7 +127,10 @@ public class Player {
 			return false;		
 	}
 	
-	//Pokus o otevreni brany
+	/**
+	 * Metoda, ktera otevre branu, pokud hrac vlastni alespon jeden klic
+	 * @return true pri uspesnem otevreni a flase pri neuspechu
+	 */
 	public boolean openGate(){
 		TableField fd = fieldBeforeSight();
 		if(key > 0 && fd.open()){
@@ -110,7 +141,12 @@ public class Player {
 			return false;
 	}
 	
-	//Pohyb
+	/**
+	 * Funkce zajistujici pohyb hrace vpred. Pri nespechu zustane hrac na stejnem policku
+	 * na jekm se nachazi
+	 * 
+	 * @return vraci true pri uspesnem pohybu vpred a false pri neuspechu
+	 */
 	public boolean move(){
 		TableField fd = fieldBeforeSight();
         if(fd != null){
