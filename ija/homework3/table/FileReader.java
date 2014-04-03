@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class FileReader {
 	public Table openFile(String filename) {
 		
-		File file = new File(System.getProperty("user.dir")+"/src/ija/homework3/maze/"+filename);
+		File file = new File(System.getProperty("user.dir")+"/examples/"+filename);
 		//Zjisteni existence
 		if (!file.exists()) {
 			System.out.println(filename + " does not exist.");
