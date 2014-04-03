@@ -1,6 +1,7 @@
-/*
+/**
  * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
  * @file: TapeField.java
+ * @version: 1.1
  */
 
 package ija.homework3.table;
@@ -117,3 +118,5 @@ public class TableField {
 			return (object instanceof Finish);
 	}
 }
+
+/*** End of TableField.java ***/

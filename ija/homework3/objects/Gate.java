@@ -1,6 +1,7 @@
-/*
+/**
  * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
  * @file: Gate.java
+ * @version: 1.1
  */
 
 
@@ -41,3 +42,5 @@ public class Gate extends TableObject{
 		return symbol;
 	}
 }
+
+/*** End of Gate.java ***/

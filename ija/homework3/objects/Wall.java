@@ -1,6 +1,7 @@
-/*
+/**
  * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
- * @file: Wall.java
+ * @file:Wall.java
+ * @version: 1.1
  */
 
 
@@ -32,3 +33,5 @@ public class Wall extends TableObject{
 		return 'W';
 	}
 }
+
+/*** End of Wall.java ***/

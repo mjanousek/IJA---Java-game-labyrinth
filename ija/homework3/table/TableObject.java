@@ -1,8 +1,10 @@
 /** 
  * Abstraktni trida slouzici k implementaci trid Finish, Gate, Key, Wall,
  * ktere od teto tridy dedi.
+ * 
  * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
  * @file: TapeObject.java
+ * @version: 1.1
  */
 
 
@@ -78,3 +80,5 @@ public abstract class TableObject {
 			return null;	
 	}
 }
+
+/*** End of TableObject.java ***/

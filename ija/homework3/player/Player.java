@@ -1,7 +1,8 @@
 /**
  * Trida reprezentujici hrace a celou jeho funkcionalitu.
  * @author: Martin Janousek xjanou14, Marek Fiala, xfiala46
- * @file: Player.java
+ * @file:Player.java
+ * @version: 1.1
  */
 
 package ija.homework3.player;
@@ -16,13 +17,13 @@ public class Player {
 	protected int sight = 0; //inicializovano nahoru
 
 	
-	//Inicializace hlavy, nastavení jeho identifikatoru id a informace o umistení na policku f.
 	/**
+	 * Metoda pro inicializaci hrace na policko a ulozeni jeho souradnic 
 	 * 
-	 * @param row
-	 * @param col
-	 * @param f
-	 * @param sight
+	 * @param row 	cislo radku na ktere je hrac vytvoren
+	 * @param col 	cislo sloupce na kterem je hrac vytvoren
+	 * @param f 	policko na kterem je hrac vytvoren
+	 * @param sight	pocatecni pohled hrace
 	 */
 	public Player(int row,int col, TableField f,int sight){
 		this.row = row;
@@ -31,7 +32,11 @@ public class Player {
 		this.sight = sight; 
 	}
 
-	//Vraci policko obsazene hlavou.
+	/**
+	 * Vraci policko na kterem se hrac aktualne nachazi
+	 * 
+	 * @return policko na kterem se hrac nachazi
+	 */
 	public TableField seizedField(){
 		return field;
 	}
@@ -126,3 +131,5 @@ public class Player {
 		return field.isFinish();
 	}
 }
+
+/*** End of Player.java ***/

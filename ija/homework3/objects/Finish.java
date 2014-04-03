@@ -1,6 +1,7 @@
-/*
+/**
  * @author: Martin Janousek xjanou14, Marek Fiala, xfiala46
- * @file: Finish.java
+ * @file:Finish.java
+ * @version: 1.1
  */
 
 
@@ -31,3 +32,4 @@ public class Finish extends TableObject{
 		return 'F';
 	}
 }
+/*** End of Finish.java ***/

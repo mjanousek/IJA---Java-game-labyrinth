@@ -1,13 +1,10 @@
 /**
  * Trida slouzici jako rozhrani pro dalsi funkcnost 
+ * 
  * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
+ * @file: Main.java
  * @version: 1.1
- **/
-
-
-
-// Cely to zacit poradne okomentovavat
-
+ */
 
 package ija.homework3;
 
@@ -46,3 +43,5 @@ public class Main {
 	System.out.println("#THE END#");
 	}	
 }
+
+/*** End of Main.java ***/

@@ -1,8 +1,9 @@
 /**
  * Trida ovladajici samotnou hru, nacitani samotnych prikazu a jejich spousteni 
  * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
+ * @file: Console.java
  * @version: 1.1
- **/
+ */
 
 package ija.homework3.io;
 
@@ -15,20 +16,21 @@ import ija.homework3.table.*;
 
 public class Console{
 
-    String str = "";
-    Table table;
-    Player pl;
-    BufferedReader br;
+    String str = "";	/** Retezec obsahujici hodnotu ze prectenou ze vstupniho terminalu */
+    Table table; 		/** Matice reprezentujici hraci plochu */
+    Player pl;			/** Figurka hrace */
+    BufferedReader br;	/** Popisovac souboru pro cteni ze standardniho vstupu
     
     /**
-     * Metoda Console() vytvori prostredi pro nacitani prikazu. (konstruktor)
+     * Metoda vytvori prostredi pro nacitani prikazu. (konstruktor)
      */
     public Console(){
     	br = new BufferedReader(new InputStreamReader(System.in));
     }
     
     /**
-     * Metoda InitGame inicializuje hru. Ceka na prikaz game name, kde name je idintifikatorm hry.
+     * Metodainicializuje hru. Ceka na prikaz game name, kde name je idintifikatorm hry.
+     * 
      * @return Vraci identifikator hry typu String.
      * @throws IOException
      */
@@ -55,6 +57,7 @@ public class Console{
     /**
      * Metoda vola metodu ReadInput pro nacteni prikazu, metodu runCommand pro spusteni prikazu a
      * kontroluje, zda nebyl zadan prikaz close
+     * 
      * @param table 		- zde je predano nactene bludiste
      * @throws IOException
      */
@@ -76,7 +79,7 @@ public class Console{
     }
     
     /**
-     * Metoda ReadInput() nacte radek ze standartniho vstupu
+     * Metoda nacte radek ze standartniho vstupu
      * @throws IOException
      */
     public void ReadInput() throws IOException{
@@ -84,7 +87,6 @@ public class Console{
         str = br.readLine();
     }
 
-    //	Metoda pro chuzi pomoci sekvence go-stop
     /**
      * Metoda foUntilStop() slouzi pro chuzi pomoci sekvence go-stop.
      * @return GameState 		- vraci uspesnost prikazu
@@ -113,7 +115,8 @@ public class Console{
     	}
     }
     /**
-     * Metoda unCommand() spousti prikaz nacteny ze standartniho vstupu a ulozeny v instancni promenne str
+     * Metoda spousti prikaz nacteny ze standartniho vstupu a ulozeny v instancni promenne str
+     * 
      * @return GameState 		-
      */
     public GameState runCommand(){
@@ -168,9 +171,9 @@ public class Console{
             return GameState.INVALIDINPUT;
     }
     
-    // hlasky o stavu hry
     /**
-     * Enum GameState je vycet stavu hry, do kterych se da dostat.
+     * Enumerace GameState je vycet stavu hry, do kterych se da dostat.
+     * 
      * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
      *
      */
@@ -231,3 +234,5 @@ public class Console{
         };
     }
 }
+
+/*** End of Console.java ***/

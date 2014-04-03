@@ -1,36 +1,44 @@
-/*
+/**
+ * Trida slouzici pro otevreni a nacteni zadane hry
+ * 
  * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
  * @file: FileReader.java
+ * @version: 1.1
  */
 
 
 package ija.homework3.io;
 
+//Import
 import ija.homework3.table.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 
-
 public class FileReader {
+	
+	/**
+	 * Otevreni souboru s bludistem dle zadaneho jmena
+	 * 
+	 * @param 	filename jmeno bludiste ktere se ma otevrit
+	 * @return 	vraci vytvorenou matici obsahujici bludiste, null v pripade chyby
+	 */
 	public Table openFile(String filename) {
 		
 		File file = new File(System.getProperty("user.dir")+"/examples/"+filename);
-		//Zjisteni existence
+		//Zjisteni existence souboru
 		if (!file.exists()) {
-			System.out.println(filename + " does not exist.");
+			System.err.println(filename + " does not exist.");
 			return null;
 		}
 		if (!(file.isFile() && file.canRead())) {
-			System.out.println(filename + " cannot be read from.");
+			System.err.println(filename + " cannot be read from.");
 			return null;
 		}
 		try{
 			FileInputStream fis = new FileInputStream(file);
 			Scanner s = new Scanner(fis);
-			Table tab = this.readFile(s);
+			Table tab = this.readFile(s);	// Precteni obsahu souboru
 			s.close();
 			fis.close();
 			return tab;
@@ -40,9 +48,14 @@ public class FileReader {
 		return null;
 	}
   
-	//Naplni tabulku objekty
-   public Table readFile(Scanner s){
-	   int row,col;
+	/**
+	 * Vytvoreni matice a jeji naplneni objekty
+	 * 
+	 * @param s Popisovac vstupniho souboru
+	 * @return	Matice obsahujici herni pole, null v pripade chyby
+	 */
+	public Table readFile(Scanner s){
+	   int row,col;	/** Velikost radku a sloupcu */
 	   
 	   try{
 		   if(!s.hasNext()){	//Pokud neexistuje prvni radek chyba
@@ -52,9 +65,11 @@ public class FileReader {
 			   
 		   String numbStr = s.next();
 		   row = Integer.parseInt(numbStr.substring(0, 2)); // X souradnice
-		   if(!numbStr.substring(2,3).equals("x"))
+		   if(!numbStr.substring(2,3).equals("x")){			// Oddelovac x
 			   System.out.println("Missing size number devider x insted"+numbStr.substring(2,3));
-		   col = Integer.parseInt(numbStr.substring(3)); // Y souradnice
+			   return null;	
+		   }
+		   col = Integer.parseInt(numbStr.substring(3)); 	// Y souradnice
 		   
 		   Table table =  new Table(row,col);
 		   while(s.hasNext()){
@@ -70,9 +85,10 @@ public class FileReader {
 
 		   return table;
 	   }catch(NumberFormatException e){
-		   System.out.println("Wrong number format\n");
+		   System.err.println("Wrong number format\n");
 		   return null;
 	   }
    }
 }
 
+/*** End of FileReader.java ***/

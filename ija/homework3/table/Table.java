@@ -1,6 +1,7 @@
-/*
+/**
  * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
  * @file: Table.java
+ * @version: 1.1
  */
 
 package ija.homework3.table;
@@ -89,5 +90,6 @@ public class Table {
 			return null;
 		return objectFD[row][col];
 	}
-
 }
+
+/*** End of Table.java ***/

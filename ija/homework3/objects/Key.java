@@ -1,6 +1,7 @@
-/*
+/**
  * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
- * @file: Key.java
+ * @file:Key.java
+ * @version: 1.1
  */
 
 
@@ -32,3 +33,5 @@ public class Key extends TableObject{
 		return 'K';
 	}
 }
+
+/*** End of Key.java ***/
