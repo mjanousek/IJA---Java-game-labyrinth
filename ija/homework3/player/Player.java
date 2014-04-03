@@ -1,6 +1,7 @@
-/*
- * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
- * @file: TapeHead.java
+/**
+ * Trida reprezentujici hrace a celou jeho funkcionalitu.
+ * @author: Martin Janousek xjanou14, Marek Fiala, xfiala46
+ * @file: Player.java
  */
 
 package ija.homework3.player;
@@ -16,6 +17,13 @@ public class Player {
 
 	
 	//Inicializace hlavy, nastavení jeho identifikatoru id a informace o umistení na policku f.
+	/**
+	 * 
+	 * @param row
+	 * @param col
+	 * @param f
+	 * @param sight
+	 */
 	public Player(int row,int col, TableField f,int sight){
 		this.row = row;
 		this.col = col;
