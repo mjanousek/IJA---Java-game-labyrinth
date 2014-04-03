@@ -14,12 +14,17 @@ import ija.homework3.table.*;
 
 public class Console{
 
-	String id = "";
-    String str = "";
+    String str = null;
     Table table;
     Player pl;
+    BufferedReader br;
     
-    public String InitGame(){
+    public Console(){
+    	br = new BufferedReader(new InputStreamReader(System.in));
+    }
+    
+    public String InitGame() throws IOException{
+    	String id = "";
     	while (id.equals("")){
     		System.out.println(GameState.INTRO);
     		System.out.print(">>>");
@@ -34,15 +39,16 @@ public class Console{
     			id = "";    		
     	}
     	System.out.println(GameState.WELCOME);
-    	str = "";
+    	str = null;
     	return id;
     }
     
-    public void RunGame(Table table){
+    public void RunGame(Table table) throws IOException {
     	this.table = table; 
 		this.pl = table.createPlayer();
     	//------------------------------------------------
 		GameState status;
+
     	while(!str.equals("close")){
     		System.out.print(">>>");
     		ReadInput();
@@ -52,24 +58,39 @@ public class Console{
     			break;
     		}	
     	}
-    	System.out.println("#THE END#");
     }
     
 
-    public void ReadInput(){
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        this.str = null;
-
-        try {
-            this.str = br.readLine();
-
-        } catch (IOException ioe) {
-            System.out.println("Nepodarilo se nacist prikaz.");
-            System.exit(1);
-        }
+    public void ReadInput() throws IOException{
+        str = null;
+        str = br.readLine();
     }
 
+    //Metoda pro chuzi pomoci sekvence go-stop
+    public GameState goUntilStop(){
+    	while(true){
+    		if(pl.move() == false)
+    			return GameState.CANTMOVE;
+    		
+			if(pl.isWinner())
+				return GameState.WINNER;
+			try {
+				Thread.sleep(1000);
+				if(br.ready()){
+					ReadInput();
+					if(str.equals("stop"))
+						return GameState.VALIDINPUT;
+				}
+	        } catch (IOException ioe) {
+	            System.out.println("Cannot read order");
+	            System.exit(1);
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
+			System.out.println("Move for one position");
+    	}
+    }
+    
     public GameState runCommand(){
            	switch(str){
             		//-------------------------------------------prikazy hrace
@@ -79,7 +100,7 @@ public class Console{
 	    			case "right":
             			pl.rotateRight();
 	    				return GameState.VALIDINPUT;
-	    			case "go":
+	    			case "step":
 	    				if(pl.move()){
 	    					if(pl.isWinner())
 	    						return GameState.WINNER;
@@ -88,10 +109,9 @@ public class Console{
 	    				}
 	    				else
 	    					return GameState.CANTMOVE;
-	    					
-	    			case "stop":
 	    				
-	    				//return true;
+	    			case "go":
+	    				return goUntilStop();	    					
 	    
 	    			case "keys":
 	    				System.out.println("You have: "+pl.keyCount()+((pl.keyCount() == 1)?" key":" keys"));
@@ -113,6 +133,7 @@ public class Console{
 	    			case "show":
 	    				table.printTable();
 	    				return GameState.VALIDINPUT;
+	    				
 	    			case "close":
 	    				return GameState.CLOSE;
 	    			default:
@@ -176,28 +197,6 @@ public class Console{
             @Override
             public String toString() {
             	return "Invalid input";
-            }
-        };
-    }
-    
-    //chybove hlasky
-    public enum GameError {
-        WALL {
-            @Override
-            public String toString() {
-                return "Nemuzete jit dopredu, je pred vami zed.";
-            }
-        },
-        WELCOME {
-        	@Override
-        	public String toString() {
-                return "Vitejte ve hre!";
-            }
-        },
-        NULLKEYS {
-            @Override
-            public String toString() {
-            	return "Nemate zadne klice.";
             }
         };
     }
