@@ -17,7 +17,14 @@ public class TableField {
 	private Player figure = null;
 	protected Table table;
 	
-	//Inicializace policka p a umisteni objektu podle zadaneho formatu type
+	/**
+	 * Metoda inicializuje policko p a umisti na nej objekt podle zadaneho formatu
+	 * 
+	 * @param table matice hraciho pole
+	 * @param row 	cislo radku na ktery se ma umistit policko
+	 * @param col	cislo sloupce na ktery se ma umistit policko
+	 * @param type	retezec symbolizujici typ viz (@see TapeObject.java)
+	 */
 	public TableField(Table table, int row,int col, String type){
 		object = TableObject.create(type);
 		this.table = table;
@@ -26,23 +33,32 @@ public class TableField {
 	}
 		
 	//Test, zda je možné otevrít objekt na polcku. Podmínka: polícko obsahuje objekt, který lze otevrit.
-	public boolean canBeOpen(){
+/*	public boolean canBeOpen(){
         if((this.object) == null)
             return object.canBeOpen();
         else
             return false;
-	}
+	}*/
 	
-	//Vrací pozici policka.
+	/**
+	 * Metoda vraci pozici radku policka @return cislo symbolizujici radek
+	 */
 	public int positionRow(){
 		return row;
 	}
+	/**
+	 * Metoda vraci pozici radku policka @return cislo symbolizujici sloupec
+	 */
 	public int positionCol(){
 		return col;
 	}
 	
-	//	Obsadi policko hlavou figure, pokud je to mozne. Vraci úspesnost operace (ob-
-	//sazení se zdarilo/nezdarilo).
+	/**
+	 * Obsazeni policka hracem figure, pokud je to mozne
+	 * 
+	 * @param figure hrac ktery chce policko obsadit
+	 * @return	hodnota ano ne podle toho zda byla metoda uspesna
+	 */
 	public boolean seize(Player figure){
 		if(canSeize()){
 			this.figure = figure;
@@ -51,7 +67,11 @@ public class TableField {
 		return false;
 	}
 	
-	//Uvolni policko field. Vraci hlavu, která byla na policku. Pokud bylo policko volne, vraci null.
+	/**
+	 * Metoda uvolneni policka.
+	 * 
+	 * @return Figurka hrace
+	 */
 	public Player leave(){
 		if(figure != null){
 			Player tmp = figure;
@@ -61,8 +81,12 @@ public class TableField {
 		return null;
 	}
 	
-	//Test, zda je možné obsadit policko. 
-	//Podminka obsazení: policko neni obsazene a obsazeni dovoluje umísteny objekt.
+	/**
+	 * Metoda testuje zda je mozne obsadit dane policko
+	 * Podminka obsazení: policko neni obsazene a obsazeni dovoluje umísteny objekt.
+	 * 
+	 * @return hodnota ano ne podle toho zda byla metoda uspesna
+	 */
 	public boolean canSeize(){
 		
 		if(object != null || figure != null){
@@ -75,7 +99,11 @@ public class TableField {
 		return true;
 	}
 	
-	//Otevreni objektu na policku
+	/**
+	 * Metoda otevira objekt na policku
+	 * 
+	 * @return hodnota ano ne podle toho zda byla metoda uspesna
+	 */
 	public boolean open(){
 		if(object != null)
 			return object.open(); //Vraci zda bylo mozno otevrit
@@ -83,7 +111,11 @@ public class TableField {
 		return false;
 	}
 	
-	// Vypis objektu na policku dle symbolu
+	/**
+	 * Metoda pro vypis objektu na policku
+	 * 
+	 * @return symbol znacici objekt na policku
+	 */
 	public char printObj(){
 
 		if(figure != null)
@@ -94,12 +126,23 @@ public class TableField {
 			return '.';
 	}
 	
-	// Funkce pro ziskani policka na dane pozici
+	/**
+	 * Metoda vraci policko na dane pozici
+	 * 
+	 * @param 	row cislo radku
+	 * @param 	col cislo sloupce
+	 * @return 	pozadovane policko
+	 */
 	public TableField fieldOnPosition(int row, int col){
 		return table.fieldAt(row,col);
 	}	
 	
-	// Pokus o vezmuti klice 
+	/**
+	 * Metoda se pokousi vzit klic na zadanem policku
+	 * Podminka: musi na policku lezi objekt a lze vzit
+	 * 
+	 * @return hodnota ano ne podle toho zda byla metoda uspesna
+	 */
 	public boolean tryTakeKey(){
 		if(object == null)
 			return false;
@@ -111,6 +154,11 @@ public class TableField {
 			return false;
 	}
 	
+	/**
+	 * Metoda overujici zda je policko polickem vyhernim
+	 * 
+	 * @return hodnota ano ne podle toho zda byla metoda uspesna
+	 */
 	public boolean isFinish(){
 		if(object == null)
 			return false;
