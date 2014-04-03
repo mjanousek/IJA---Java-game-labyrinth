@@ -1,3 +1,8 @@
+/**
+ * Testy na funkcnost souboru.
+ * @author xjanou14 Martin Janoušek, xfiala46 Marek Fiala
+ * @version 1.2
+ */
 package ija.homework3.tests;
 
 import static org.junit.Assert.*;
@@ -23,7 +28,9 @@ public class JunitTest {
     public void tearDown() {
 
     }
-
+    /**
+     * Test na funkcnost vytvareni instanci tridy TableObject.
+     */
     @Test
     public void testTableObject01() {
         TableObject to1 = TableObject.create("W");	//wall
@@ -44,6 +51,9 @@ public class JunitTest {
         assertFalse("Otevrenou branu nelze otevrit", to2.canBeOpen());
     }
 
+    /**
+     * Test na obsazovani polecek a skakani na jine policka.
+     */
     @Test
     public void testTable02() {
     	//test policek a pohybu mezi nimi
@@ -69,6 +79,9 @@ public class JunitTest {
         
     }
 
+    /**
+     * Test na rotaci hrace.
+     */
     @Test
     public void testPlayer03() {
     	//test policek a rotace hrace
@@ -90,22 +103,25 @@ public class JunitTest {
         
         before = sight = h1.symbolSight();
         h1.rotateLeft();
-        assertNotEquals("Hrac se otocil doleva.", sight, h1.symbolSight());
+        assertFalse("Hrac se otocil doleva.", sight == h1.symbolSight());
         sight = h1.symbolSight();
         h1.rotateLeft();
-        assertNotEquals("Hrac se otocil podruhe doleva.", sight, h1.symbolSight());
+        assertFalse("Hrac se otocil podruhe doleva.", sight == h1.symbolSight());
         
         sight = h1.symbolSight();
         h1.rotateRight();
-        assertNotEquals("Hrac se otocil doprava.", sight, h1.symbolSight());
+        assertFalse("Hrac se otocil doprava.", sight == h1.symbolSight());
         sight = h1.symbolSight();
         h1.rotateRight();
-        assertNotEquals("Hrac se otocil podruhe doprava.", sight, h1.symbolSight());
+        assertFalse("Hrac se otocil podruhe doprava.", sight == h1.symbolSight());
         assertEquals("Hrac se diva do puvodniho smeru.", before, h1.symbolSight());
     
     }
 
-    
+    /**
+     * test provadejici primitivni pruchod hrace polem. Testuje se otaceni, posun hrace a zda
+     * lze otevrit branu.
+     */
     @Test
     public void testPlayer04() {
     	//test policek a rotace a posunu hrace
@@ -128,22 +144,26 @@ public class JunitTest {
         assertEquals("Je ve stejnem sloupci (1)", f.positionCol(), 1);
         assertEquals("Je ve stejnem radku (2)", f.positionRow(), 2);
         
+        //hrac se posune dolu
         pl.move();
         f = pl.seizedField();
         assertEquals("Je ve stejnem sloupci (1)", f.positionCol(), 1);
         assertEquals("Je ve stejnem radku (3)", f.positionRow(), 3);
         
+        //hrac se otoci a posune doprava
         pl.rotateLeft();
         pl.move();
         f = pl.seizedField();
         assertEquals("Je ve stejnem sloupci (2)", f.positionCol(), 2);
         assertEquals("Je ve stejnem radku (3)", f.positionRow(), 3);
         
+        //hrac zkousi otevrit branu
         pl.rotateLeft();
         assertFalse("Nemuze vejit do brany", pl.move());
         assertEquals("Je ve stejnem sloupci (2)", f.positionCol(), 2);
         assertEquals("Je ve stejnem radku (3)", f.positionRow(), 3);
         
+        //hraci je pridelen klic a otevre branu
         pl.addKeys(1);
         assertTrue("Otevrela se brana",pl.openGate());
         assertTrue("Vejde do brany", pl.move());
@@ -153,7 +173,10 @@ public class JunitTest {
             
     }
 
-
+    /**
+     * Test slozitejsiho pruchodu hrace polem. Hrac prochazi, sebere klic,
+     * otevre branu a dojde do cile.
+     */
     @Test
     public void testPlayer05() {
     	//test policek hrace herniho jadra(pohyb, rotace, otevreni, sebrani klicu, finish)
@@ -171,16 +194,18 @@ public class JunitTest {
         Player pl = new Player(1,1, f, 2);
 		f.seize(pl);
 		assertNotNull("Hrac byl vytvoren.", pl);
-        pl.move();
+        //posune se dolu
+		pl.move();
         f = pl.seizedField();
         assertEquals("Je ve stejnem sloupci (1)", f.positionCol(), 1);
         assertEquals("Je ve stejnem radku (2)", f.positionRow(), 2);
-        
+        //posune se dolu
         pl.move();
         f = pl.seizedField();
         assertEquals("Je ve stejnem sloupci (1)", f.positionCol(), 1);
         assertEquals("Je ve stejnem radku (3)", f.positionRow(), 3);
         
+        //otoci a posune se doprava
         pl.rotateLeft();
         pl.move();
         f = pl.seizedField();
@@ -191,18 +216,20 @@ public class JunitTest {
         assertEquals("Je ve stejnem sloupci (2)", f.positionCol(), 2);
         assertEquals("Je ve stejnem radku (3)", f.positionRow(), 3);
         
-        
+        //sebere klic
         assertTrue("Vzali jsme klic",pl.takeKey());
         pl.move();
         pl.rotateLeft();
+        //otevre branu
         assertTrue("Otevrela se brana",pl.openGate());
         assertTrue("Vejde do brany", pl.move());
         f = pl.seizedField();
+        //vstoupi do otevrene brany
         assertEquals("Je ve stejnem sloupci (3)", f.positionCol(), 3);
         assertEquals("Je ve stejnem radku (2)", f.positionRow(), 2);
         
         assertFalse("Neni vitez!", pl.isWinner());
-        
+        //zvitezi
         assertTrue("Vejde na finish.", pl.move());
         assertTrue("Je vitez!", pl.isWinner());
         
