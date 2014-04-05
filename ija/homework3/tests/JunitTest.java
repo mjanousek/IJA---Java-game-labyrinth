@@ -6,6 +6,7 @@
 package ija.homework3.tests;
 
 import static org.junit.Assert.*;
+import ija.homework3.io.FileReader;
 //import ija.homework3.io.Console;
 import ija.homework3.objects.*;
 import ija.homework3.table.*;
@@ -240,4 +241,91 @@ public class JunitTest {
         
     }
     
+    @Test
+    public void testFileReader(){
+    	//Test nacitani souboru a tisknuti spravnych znaku zastupujici objekty v bludisti
+    	FileReader fr = new FileReader();
+    	assertNotNull("fr neni nullovy", fr);
+    	Table t;
+    	
+    	assertNull("Neexistujici soubor.", fr.openFile("/zadny/soubor.txt"));
+    	assertNotNull("Existujici soubor.", t = fr.openFile("maze2"));
+    	TableField f = t.fieldAt(0,0);
+    	assertEquals("Na policku 0,0 je zed.", f.printObj(), 'W');
+    	f = f.fieldOnPosition(1,1);
+    	assertEquals("Na policku 1,1 je vzduchoprazdno(neni objekt).", f.printObj(), '.');
+    	f = f.fieldOnPosition(1,2);
+    	assertEquals("Na policku 1,2 je brana.", f.printObj(), 'G');
+    	f = f.fieldOnPosition(1,3);
+    	assertEquals("Na policku 1,3 je cil.", f.printObj(), 'F');
+    	f = f.fieldOnPosition(3,12);
+    	assertEquals("Na policku 1,3 je klic.", f.printObj(), 'K');
+    }
+
+    @Test
+    public void testPlayer07() {
+    	//test hledani "teleportu" - test zda lze vstoupit na objekty, ktere to znemoznuji
+        Table t1 = new Table(5,5);
+        t1.insertLine("WWWWW");
+        t1.insertLine("W..KW");
+        t1.insertLine("WKWGW");
+        t1.insertLine("WWFGW");
+        t1.insertLine("WWWWW");
+        
+        
+        TableField f = t1.fieldAt(0,0);
+        
+        //umisten hrac na policku s pohledem doprava!
+        Player pl = new Player(1,1, f, 1);
+		f.seize(pl);
+		assertNotNull("Hrac byl vytvoren.", pl);
+        //posune se doprava
+		pl.move();
+        f = pl.seizedField();
+        assertEquals("Je ve stejnem sloupci (2)", f.positionCol(), 2);
+        assertEquals("Je ve stejnem radku (1)", f.positionRow(), 1);
+        //zkousi posun doprava
+        assertFalse("Nemuze se posunot doprava-je tam klic.",pl.move());
+        
+        assertTrue("Vzali jsme klic",pl.takeKey());
+        
+        f = f.fieldOnPosition(1,3);
+    	assertEquals("Na policku 1,3 je je prazdny objekt.", f.printObj(), '.');
+    	
+        assertTrue("Posunuli jsme se na misto klice",pl.move());
+        assertEquals("Je ve stejnem sloupci (3)", f.positionCol(), 3);
+        assertEquals("Je ve stejnem radku (1)", f.positionRow(), 1);
+        
+        pl.rotateRight();
+        
+        assertFalse("Nemuze na branu ktera je zavrena",pl.move());
+        assertTrue("Otevre branu",pl.openGate());
+        assertTrue("Posune se na misto prvni brany",pl.move());
+        assertFalse("Neotevre branu",pl.openGate());
+        assertFalse("Nemuze na branu ktera je zavrena",pl.move());
+        
+        //vraci se pro klic
+        pl.rotateLeft();
+        pl.rotateLeft();
+        assertFalse("Klic uz neexistuje",pl.takeKey());
+        pl.move();
+        pl.rotateLeft();
+        pl.move();
+        pl.move();
+        pl.rotateLeft();
+        assertTrue("Vezme druhy klic",pl.takeKey());
+        pl.rotateRight();
+        pl.rotateRight();
+        pl.rotateRight();
+        pl.move();
+        pl.move();
+        pl.rotateRight();
+        pl.move();
+        assertTrue("Otevre druhou branu.", pl.openGate());
+        pl.move();
+        pl.rotateRight();
+        pl.move();
+        assertFalse("Na policku neni klic",pl.takeKey());
+        assertTrue("Je v cili!",pl.isWinner());
+    }
 }
