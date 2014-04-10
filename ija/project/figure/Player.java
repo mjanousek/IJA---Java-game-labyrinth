@@ -5,17 +5,13 @@
  * @version: 1.1
  */
 
-package ija.homework3.player;
+package ija.project.figure;
 
-import ija.homework3.table.*;
+import ija.project.table.*;
 
-public class Player {
-	protected int row;
-	protected int col;
+public class Player extends Figure{
 	protected int key = 0;
-	protected TableField field = null;
-	protected int sight = 0; //inicializovano nahoru
-
+	protected boolean alive;
 	
 	/**
 	 * Metoda pro inicializaci hrace na policko a ulozeni jeho souradnic 
@@ -26,19 +22,8 @@ public class Player {
 	 * @param sight	pocatecni pohled hrace
 	 */
 	public Player(int row,int col, TableField f,int sight){
-		this.row = row;
-		this.col = col;
-		field = f;
-		this.sight = sight; 
-	}
-
-	/**
-	 * Vraci policko na kterem se hrac aktualne nachazi
-	 * 
-	 * @return policko na kterem se hrac nachazi
-	 */
-	public TableField seizedField(){
-		return field;
+		super(row,col,f,sight);
+		alive = true;
 	}
 
 	/**
@@ -57,22 +42,6 @@ public class Player {
 	 */
 	public int keyCount(){
 		return key;
-	}
-
-	/**
-	 * Zajistuje rotaci hrace vlevo
-	 */
-	public void rotateLeft(){
-		if(--sight < 0)
-			sight = 3;
-	}
-	
-	/**
-	 * Zajistuje rotaci hrace vpravo
-	 */
-	public void rotateRight(){
-		if(++sight > 3)
-			sight = 0;
 	}
 	
 	/**
@@ -93,24 +62,6 @@ public class Player {
 		case 3: return '<';
 		default: return 'X';		
 		}
-	}
-	
-	
-	/**
-	 * Vrati polecko kam se hrac diva. (Policko pred nim.)
-	 * @return	policka pred hracem
-	 */
-	public TableField fieldBeforeSight(){
-		if(sight == 0) 		//nahoru
-			return field.fieldOnPosition(row-1,col);
-		else if(sight == 1)	//doprava
-			return field.fieldOnPosition(row,col+1);
-		else if(sight == 2)	//dolu
-			return field.fieldOnPosition(row+1,col);
-		else if(sight == 3)	//doleva
-			return field.fieldOnPosition(row,col-1);
-		
-		return null;
 	}
 	
 	/**
@@ -165,6 +116,14 @@ public class Player {
 	//Overeni vyhry
 	public boolean isWinner(){
 		return field.isFinish();
+	}
+	
+	public boolean amIAlive(){
+		return alive;
+	}
+	
+	public void kill(){
+		alive = false;
 	}
 }
 

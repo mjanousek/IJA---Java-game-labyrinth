@@ -8,8 +8,8 @@
  */
 
 
-package ija.homework3.table;
-import ija.homework3.objects.*;
+package ija.project.table;
+import ija.project.objects.*;
 
 public abstract class TableObject {
 	

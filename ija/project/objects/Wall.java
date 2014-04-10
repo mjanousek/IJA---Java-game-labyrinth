@@ -1,18 +1,18 @@
 /**
- * @author: Martin Janousek xjanou14, Marek Fiala, xfiala46
- * @file:Finish.java
+ * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
+ * @file:Wall.java
  * @version: 1.1
  */
 
 
-package ija.homework3.objects;
-import ija.homework3.table.TableObject;
+package ija.project.objects;
+import ija.project.table.TableObject;
 
-public class Finish extends TableObject{
+public class Wall extends TableObject{
 	
 	//Nelze obsadit
 	public boolean canSeize(){
-		return true;
+		return false;
 	}
 	
 	//Nelze otevrit
@@ -20,6 +20,7 @@ public class Finish extends TableObject{
 		return false;
 	}
 
+	
 	public boolean canBeOpen(){
 		return false;
 	}
@@ -29,7 +30,8 @@ public class Finish extends TableObject{
 	}
 	
 	public char symbolPrint(){
-		return 'F';
+		return 'W';
 	}
 }
-/*** End of Finish.java ***/
+
+/*** End of Wall.java ***/

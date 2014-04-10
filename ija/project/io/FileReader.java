@@ -7,10 +7,10 @@
  */
 
 
-package ija.homework3.io;
+package ija.project.io;
 
 //Import
-import ija.homework3.table.*;
+import ija.project.table.*;
 import java.io.*;
 import java.util.Scanner;
 

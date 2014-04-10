@@ -4,17 +4,17 @@
  * @version: 1.1
  */
 
-package ija.homework3.table;
+package ija.project.table;
 
-import ija.homework3.objects.Finish;
-import ija.homework3.player.*;
+import ija.project.objects.Finish;
+import ija.project.figure.*;
 
 public class TableField {
 
 	private int row;
 	private int col;
 	private TableObject object = null;
-	private Player figure = null;
+	private Figure figure = null;
 	protected Table table;
 	
 	/**
@@ -59,7 +59,7 @@ public class TableField {
 	 * @param figure hrac ktery chce policko obsadit
 	 * @return	hodnota ano ne podle toho zda byla metoda uspesna
 	 */
-	public boolean seize(Player figure){
+	public boolean seize(Figure figure){
 		if(canSeize()){
 			this.figure = figure;
 			return true;
@@ -72,9 +72,9 @@ public class TableField {
 	 * 
 	 * @return Figurka hrace
 	 */
-	public Player leave(){
+	public Figure leave(){
 		if(figure != null){
-			Player tmp = figure;
+			Figure tmp = figure;
 			figure = null;
 			return tmp;
 		}
@@ -164,6 +164,16 @@ public class TableField {
 			return false;
 		else
 			return (object instanceof Finish);
+	}
+	
+	public boolean couldKill(){
+		if(figure != null && figure instanceof Player){
+			Player pl = (Player)figure;
+			pl.kill();
+			this.leave();
+			return true;
+		}
+		return false;
 	}
 }
 

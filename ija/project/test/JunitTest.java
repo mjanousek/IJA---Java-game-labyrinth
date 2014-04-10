@@ -3,14 +3,14 @@
  * @author xjanou14 Martin Janoušek, xfiala46 Marek Fiala
  * @version 1.2
  */
-package ija.homework3.tests;
+package ija.project.test;
 
 import static org.junit.Assert.*;
-import ija.homework3.io.FileReader;
+import ija.project.io.FileReader;
 //import ija.homework3.io.Console;
-import ija.homework3.objects.*;
-import ija.homework3.table.*;
-import ija.homework3.player.*;
+import ija.project.objects.*;
+import ija.project.table.*;
+import ija.project.figure.*;
 
 
 import org.junit.After;
@@ -58,13 +58,13 @@ public class JunitTest {
     @Test
     public void testTable02() {
     	//test policek a pohybu mezi nimi
-        Table t1 = new Table(5,5);
+    	Table t1 = new Table(5,5);
         t1.insertLine("WWWWW");
         t1.insertLine("W.F.W");
         t1.insertLine("W.W.W");
         t1.insertLine("W.G.W");
         t1.insertLine("WWWWW");
-
+        
         TableField f = t1.fieldAt(0,0);
         assertFalse("Pozice 0,0: nelze obsadit.", f.canSeize());
         f = t1.fieldAt(1, 1);
@@ -86,7 +86,8 @@ public class JunitTest {
     @Test
     public void testPlayer03() {
     	//test policek a rotace hrace
-        Table t1 = new Table(5,5);
+    	System.out.println("testPlayer03");
+    	Table t1 = new Table(5,5);
         t1.insertLine("WWWWW");
         t1.insertLine("W.F.W");
         t1.insertLine("W.W.W");
@@ -97,26 +98,54 @@ public class JunitTest {
         Player h1;
         TableField f1;
         
+        
+        t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
+        
         h1 = t1.createPlayer();
-        assertNotNull("Hlava 1 vytvorena.", h1);
+        assertNotNull("Hrac 1 vytvorena.", h1);
         f1 = h1.seizedField();
-        assertNotNull("Hlava ma ulozene pole.", f1);
+        assertNotNull("Hrac ma ulozene pole.", f1);
+        
+        t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
         
         before = sight = h1.symbolSight();
         h1.rotateLeft();
+        System.out.print("LEFT: ");
         assertFalse("Hrac se otocil doleva.", sight == h1.symbolSight());
+        System.out.println("ok");
+        
+        t1.printTable();
         sight = h1.symbolSight();
+        System.out.print("LEFT: ");
         h1.rotateLeft();
+        System.out.println("ok");
         assertFalse("Hrac se otocil podruhe doleva.", sight == h1.symbolSight());
+        t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
         
         sight = h1.symbolSight();
         h1.rotateRight();
+        System.out.print("RIGHT: ");
         assertFalse("Hrac se otocil doprava.", sight == h1.symbolSight());
+        System.out.println("ok");
+        t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
+        
         sight = h1.symbolSight();
         h1.rotateRight();
+        System.out.print("RIGHT: ");
         assertFalse("Hrac se otocil podruhe doprava.", sight == h1.symbolSight());
         assertEquals("Hrac se diva do puvodniho smeru.", before, h1.symbolSight());
-    
+        System.out.println("ok");
+        t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
     }
 
     /**
@@ -126,6 +155,7 @@ public class JunitTest {
     @Test
     public void testPlayer04() {
     	//test policek a rotace a posunu hrace
+    	System.out.println("testPlayer04");
         Table t1 = new Table(5,5);
         t1.insertLine("WWWWW");
         t1.insertLine("W...W");
@@ -133,41 +163,82 @@ public class JunitTest {
         t1.insertLine("W...W");
         t1.insertLine("WWWWW");
         
-        
         TableField f = t1.fieldAt(0,0);
         
         //umisten hrac na policku
         Player pl = new Player(1,1, f, 2);
 		f.seize(pl);
 		assertNotNull("Hrac byl vytvoren.", pl);
-        pl.move();
+		t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
+		
+		System.out.print("STEP: ");
+		pl.move();
         f = pl.seizedField();
         assertEquals("Je ve stejnem sloupci (1)", f.positionCol(), 1);
         assertEquals("Je ve stejnem radku (2)", f.positionRow(), 2);
+        System.out.println("ok");
+        t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
         
         //hrac se posune dolu
+        System.out.print("STEP: ");
         pl.move();
         f = pl.seizedField();
         assertEquals("Je ve stejnem sloupci (1)", f.positionCol(), 1);
         assertEquals("Je ve stejnem radku (3)", f.positionRow(), 3);
+        System.out.println("ok");
+        t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
         
         //hrac se otoci a posune doprava
+        System.out.print("LEFT: "); 
         pl.rotateLeft();
+        System.out.println("ok");
+        t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
+        
+        System.out.print("STEP: ");
         pl.move();
         f = pl.seizedField();
         assertEquals("Je ve stejnem sloupci (2)", f.positionCol(), 2);
         assertEquals("Je ve stejnem radku (3)", f.positionRow(), 3);
+        System.out.println("ok");
+        t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
         
         //hrac zkousi otevrit branu
+        System.out.print("LEFT: ");
         pl.rotateLeft();
         assertFalse("Nemuze vejit do brany", pl.move());
         assertEquals("Je ve stejnem sloupci (2)", f.positionCol(), 2);
         assertEquals("Je ve stejnem radku (3)", f.positionRow(), 3);
+        System.out.println("ok");
+        t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
         
         //hraci je pridelen klic a otevre branu
         pl.addKeys(1);
+        System.out.print("OPEN: ");
         assertTrue("Otevrela se brana",pl.openGate());
+        System.out.println("ok");
+        t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
+        
+        System.out.print("STEP: ");
         assertTrue("Vejde do brany", pl.move());
+        System.out.println("ok");
+        t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
+        
         f = pl.seizedField();
         assertEquals("Je ve stejnem sloupci (2)", f.positionCol(), 2);
         assertEquals("Je ve stejnem radku (2)", f.positionRow(), 2);
@@ -181,7 +252,9 @@ public class JunitTest {
     @Test
     public void testPlayer05() {
     	//test policek hrace herniho jadra(pohyb, rotace, otevreni, sebrani klicu, finish)
-        Table t1 = new Table(5,5);
+    	System.out.println("testPlayer05");
+    	
+    	Table t1 = new Table(5,5);
         t1.insertLine("WWWWW");
         t1.insertLine("W.WFW");
         t1.insertLine("W.WGW");
@@ -195,35 +268,75 @@ public class JunitTest {
         Player pl = new Player(1,1, f, 2);
 		f.seize(pl);
 		assertNotNull("Hrac byl vytvoren.", pl);
-        //posune se dolu
-		pl.move();
+		t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
+		
+		//posune se dolu
+        System.out.print("STEP: ");
+        pl.move();
         f = pl.seizedField();
         assertEquals("Je ve stejnem sloupci (1)", f.positionCol(), 1);
         assertEquals("Je ve stejnem radku (2)", f.positionRow(), 2);
+        System.out.println("ok");
+        t1.printTable();
+        System.out.println("");
+        
         //posune se dolu
+        System.out.print("STEP: ");
         pl.move();
         f = pl.seizedField();
         assertEquals("Je ve stejnem sloupci (1)", f.positionCol(), 1);
         assertEquals("Je ve stejnem radku (3)", f.positionRow(), 3);
+        System.out.println("ok");
+        t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
         
+        System.out.print("LEFT, STEP: ");
         //otoci a posune se doprava
         pl.rotateLeft();
         pl.move();
         f = pl.seizedField();
         assertEquals("Je ve stejnem sloupci (2)", f.positionCol(), 2);
         assertEquals("Je ve stejnem radku (3)", f.positionRow(), 3);
-        
+        System.out.println("ok ");
+        t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
+
+        System.out.print("STEP: ");
         assertFalse("Nemuze obsadit klic", pl.move());
         assertEquals("Je ve stejnem sloupci (2)", f.positionCol(), 2);
         assertEquals("Je ve stejnem radku (3)", f.positionRow(), 3);
+        System.out.println("ok");
+        t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
         
+        System.out.print("TAKE: ");
         //sebere klic
         assertTrue("Vzali jsme klic",pl.takeKey());
+        System.out.println("ok");
+        t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
+        
+        System.out.print("STEP: ");
         pl.move();
         pl.rotateLeft();
+        System.out.println("ok");
+        
         //otevre branu
+        System.out.print("OPEN: ");
         assertTrue("Otevrela se brana",pl.openGate());
         assertTrue("Vejde do brany", pl.move());
+        System.out.println("ok");
+        
+        t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
+        
         f = pl.seizedField();
         //vstoupi do otevrene brany
         assertEquals("Je ve stejnem sloupci (3)", f.positionCol(), 3);
@@ -231,8 +344,13 @@ public class JunitTest {
         
         assertFalse("Neni vitez!", pl.isWinner());
         //zvitezi
+        System.out.print("MOVE, WINNER: ");
         assertTrue("Vejde na finish.", pl.move());
         assertTrue("Je vitez!", pl.isWinner());
+        System.out.println("ok");
+        t1.printTable();
+        //v ramci formatovani a lepsi prehlednosti
+        System.out.println("");
         
         f = pl.seizedField();
         assertEquals("Je ve stejnem sloupci (3)", f.positionCol(), 3);
@@ -244,12 +362,16 @@ public class JunitTest {
     @Test
     public void testFileReader(){
     	//Test nacitani souboru a tisknuti spravnych znaku zastupujici objekty v bludisti
+    	System.out.println("testFileReader");
+        
     	FileReader fr = new FileReader();
     	assertNotNull("fr neni nullovy", fr);
     	Table t;
     	
-    	assertNull("Neexistujici soubor.", fr.openFile("/zadny/soubor.txt"));
     	assertNotNull("Existujici soubor.", t = fr.openFile("maze2"));
+    	t.printTable();
+    	System.out.println("");
+        
     	TableField f = t.fieldAt(0,0);
     	assertEquals("Na policku 0,0 je zed.", f.printObj(), 'W');
     	f = f.fieldOnPosition(1,1);
@@ -265,7 +387,8 @@ public class JunitTest {
     @Test
     public void testPlayer07() {
     	//test hledani "teleportu" - test zda lze vstoupit na objekty, ktere to znemoznuji
-        Table t1 = new Table(5,5);
+    	System.out.println("testPlayer07");
+    	Table t1 = new Table(5,5);
         t1.insertLine("WWWWW");
         t1.insertLine("W..KW");
         t1.insertLine("WKWGW");
@@ -280,24 +403,41 @@ public class JunitTest {
 		f.seize(pl);
 		assertNotNull("Hrac byl vytvoren.", pl);
         //posune se doprava
-		pl.move();
+		t1.printTable();
+    	System.out.println("");
+		
+		System.out.print("MOVE: ");
+        pl.move();
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
         f = pl.seizedField();
         assertEquals("Je ve stejnem sloupci (2)", f.positionCol(), 2);
         assertEquals("Je ve stejnem radku (1)", f.positionRow(), 1);
         //zkousi posun doprava
         assertFalse("Nemuze se posunot doprava-je tam klic.",pl.move());
         
+        System.out.print("TAKE: ");
         assertTrue("Vzali jsme klic",pl.takeKey());
-        
+        System.out.println("ok key: "+pl.keyCount());
+        t1.printTable();
+    	System.out.println("");
+    	
         f = f.fieldOnPosition(1,3);
     	assertEquals("Na policku 1,3 je je prazdny objekt.", f.printObj(), '.');
+    	
     	
         assertTrue("Posunuli jsme se na misto klice",pl.move());
         assertEquals("Je ve stejnem sloupci (3)", f.positionCol(), 3);
         assertEquals("Je ve stejnem radku (1)", f.positionRow(), 1);
         
+        System.out.print("RIGHT: ");
         pl.rotateRight();
-        
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
         assertFalse("Nemuze na branu ktera je zavrena",pl.move());
         assertTrue("Otevre branu",pl.openGate());
         assertTrue("Posune se na misto prvni brany",pl.move());
@@ -305,27 +445,130 @@ public class JunitTest {
         assertFalse("Nemuze na branu ktera je zavrena",pl.move());
         
         //vraci se pro klic
+        System.out.print("LEFT: ");
         pl.rotateLeft();
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
+        System.out.print("LEFT: ");
         pl.rotateLeft();
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
         assertFalse("Klic uz neexistuje",pl.takeKey());
+        System.out.print("MOVE: ");
         pl.move();
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
+        System.out.print("LEFT: ");
         pl.rotateLeft();
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
+        System.out.print("MOVE: ");
         pl.move();
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
+        System.out.print("MOVE: ");
         pl.move();
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
+        System.out.print("LEFT: ");
         pl.rotateLeft();
-        assertTrue("Vezme druhy klic",pl.takeKey());
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
+        System.out.print("TAKE: ");
+    	assertTrue("Vezme druhy klic",pl.takeKey());
+    	System.out.println("ok keys: "+ pl.keyCount());
+    	t1.printTable();
+    	System.out.println("");
+    	
+        System.out.print("RIGHT: ");
         pl.rotateRight();
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
+        System.out.print("RIGHT: ");
         pl.rotateRight();
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
+    	System.out.print("RIGHT: ");
         pl.rotateRight();
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
+    	System.out.print("MOVE: ");
         pl.move();
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
+    	System.out.print("MOVE: ");
         pl.move();
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
+    	System.out.print("RIGHT: ");
         pl.rotateRight();
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
+    	System.out.print("MOVE: ");
         pl.move();
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
+    	
+    	System.out.print("OPEN: ");
         assertTrue("Otevre druhou branu.", pl.openGate());
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
+        System.out.print("MOVE: ");
         pl.move();
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
+    	System.out.print("RIGHT: ");
         pl.rotateRight();
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
+    	
+    	System.out.print("MOVE: ");
         pl.move();
-        assertFalse("Na policku neni klic",pl.takeKey());
-        assertTrue("Je v cili!",pl.isWinner());
+        System.out.println("ok");
+        t1.printTable();
+    	System.out.println("");
+    	
+    	System.out.print("TAKE: ");
+    	assertFalse("Na policku neni klic",pl.takeKey());
+    	System.out.println("ok");
+    	t1.printTable();
+    	System.out.println("");
+    	
+    	assertTrue("Je v cili!",pl.isWinner());
+    	
     }
 }

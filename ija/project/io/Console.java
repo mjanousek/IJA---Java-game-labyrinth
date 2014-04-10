@@ -5,14 +5,14 @@
  * @version: 1.1
  */
 
-package ija.homework3.io;
+package ija.project.io;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import ija.homework3.player.Player;
-import ija.homework3.table.*;
+import ija.project.figure.*;
+import ija.project.table.*;
 
 public class Console{
 
@@ -64,14 +64,20 @@ public class Console{
     public void RunGame(Table table) throws IOException {
     	this.table = table; 
 		this.pl = table.createPlayer();
+		Keeper kp = table.createKeeper();
     	//------------------------------------------------
 		GameState status;
 
     	while(!str.equals("close")){
     		System.out.print(">>>");
+    		if(pl.amIAlive() != true){
+    			System.out.println("I was Killed :(");
+    			return;
+    		}
     		ReadInput();
     		status = runCommand();
     		System.out.println(status);
+    		kp.move();
     		if(status == GameState.CLOSE || status == GameState.WINNER){
     			break;
     		}	
@@ -173,7 +179,6 @@ public class Console{
     
     /**
      * Enumerace GameState je vycet stavu hry, do kterych se da dostat.
-     * 
      */
     public enum GameState {
     	INTRO {

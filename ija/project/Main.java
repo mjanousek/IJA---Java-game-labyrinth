@@ -6,13 +6,13 @@
  * @version: 1.1
  */
 
-package ija.homework3;
+package ija.project;
 
 //import ija.homework3.player.Player;
 import java.io.IOException;
 
-import ija.homework3.table.Table;
-import ija.homework3.io.*;
+import ija.project.table.Table;
+import ija.project.io.*;
 
 
 public class Main {

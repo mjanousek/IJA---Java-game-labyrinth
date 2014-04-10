@@ -5,8 +5,8 @@
  */
 
 
-package ija.homework3.objects;
-import ija.homework3.table.TableObject;
+package ija.project.objects;
+import ija.project.table.TableObject;
 
 public class Gate extends TableObject{
 	protected boolean open= false;

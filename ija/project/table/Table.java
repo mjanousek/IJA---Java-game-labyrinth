@@ -4,8 +4,8 @@
  * @version: 1.1
  */
 
-package ija.homework3.table;
-import ija.homework3.player.*;
+package ija.project.table;
+import ija.project.figure.*;
 
 import java.util.Random;
 
@@ -70,6 +70,23 @@ public class Table {
 			}
 		}				
 		return createPlayer();		//Pokud poloha nenalezena dalsi zanoreni rekurze
+	}
+	
+	//Vytvoreni hrace na urcite pozici
+	public Keeper createKeeper(){
+		Random rand = new Random();
+		TableField fd;			
+		for(int i = rand.nextInt(sizeRow); i < sizeRow;i++){		//Pokus o nahodne generovani polohy
+			for(int j = rand.nextInt(sizeCol); j < sizeCol; j++){
+				fd = objectFD[i][j];
+				if((fd.canSeize()) == true && !fd.isFinish()){	//nahodne policko a at to neni finish
+					Keeper pl = new Keeper(fd.positionRow(),fd.positionCol(), fd,rand.nextInt(3));
+					fd.seize(pl);
+					return pl;
+				}
+			}
+		}				
+		return createKeeper();		//Pokud poloha nenalezena dalsi zanoreni rekurze
 	}
 	
 
