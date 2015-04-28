@@ -1,79 +1,97 @@
 <?xml version="1.0"?>
-<!-- Author:	Marek Fiala, xfiala46 		-->
+<!-- Author:	Marek Fiala    , xfiala46  	-->
 <!--			Martin Janousek, xjanou14 	-->
 <!-- Description: ant compile - zkompiluje
-	 			  ant run 	  - spusti
+	 			  ant run 	  - spusti dva klienty a jeden server
+	 			  ant server  - spusti server
+	 			  ant client  - spusti clienta
 	 			  ant doc     - dokumentace
-	 			  ant jar     - vytvori jar
-	 			  ant start	  - spusti pres jar
-	 			  ant test 	  - spusti JUnit testy 
+	 			  ant make    - kompilace do class 
 
-Ocekava ze bude v rootu a pod nim adresare lib s JUnit a src
+Ocekava ze bude v rootu a pod nim adresare lib, examples a src
 -->
 
 
-<project name="IJA-Homework3" default="compile" basedir=".">
-	<description>IJA-Homework3</description>
+<project name="IJA-Project" default="compile" basedir=".">
+	<description>IJA-Project</description>
 
   	<property name="src" location="src" />
   	<property name="build" location="build" />
- 	<property name="distsr" location="dist-server" />
+ 	<property name="destsr" location="dest-server" />
+ 	<property name="destcl" location="dest-client" />
   	<property name="doc" location="doc" />
   	<property name="lib" location="lib"/>
 
   	<!-- Vymazani existujicich adresaru-->
   	<target name="clean">
     	<delete dir="${build}" />
-    	<delete dir="${distsr}" />
+    	<delete dir="${destsr}" />
+    	<delete dir="${destcl}" />
   	</target>
 
   	<!-- Vytvoreni novych adresaru-->
   	<target name="makedir">
     	<mkdir dir="${build}" />
-    	<mkdir dir="${distsr}" />
+    	<mkdir dir="${destsr}" />
+    	<mkdir dir="${destcl}" />
   	</target>
 
   	<!-- Provede kompilaci vcetne knihovny junit -->
   	<target name="make" depends="makedir,docs">
-    	<javac srcdir="${src}" destdir="${build}" includeantruntime="false" classpath="${lib}/junit-4.10.jar" />
+    	<javac srcdir="${src}" destdir="${build}" includeantruntime="false"/>
   	</target>
 
   	<!-- Vytvoreni Javadoc-soubory ve slozce tests jsou vynechany -->
   	<target name="docs" description="Make docs">
     	<javadoc packagenames="src" sourcepath="${src}" destdir="${doc}">
        		<fileset dir="${src}" defaultexcludes="yes">
-       			<include name="ija/homework3/**"/>
-  				<exclude name="ija/homework3/tests/**"/>
+       			<include name="ija/project/**"/>
            	</fileset>
     	</javadoc>
   	</target>
 
   	<!--Vytvoreni jar souboru  -->
   	<target name="compile" depends="make" description="Create jar file">
-  	   <jar destfile="${distsr}/ija2014-server.jar" basedir="${build}">
+  		<!-- Server -->
+  	   <jar destfile="${destsr}/ija2014-server.jar" basedir="${build}">
   	   	<manifest> <!-- Vytvoreni manifestu -->
 			<attribute name="Main-Class"
-				value="ija.homework3.Main"/>
+				value="ija.project.server.SocketServer"/>
 			<attribute name="Class-Path"
-				value="${distsr}/ija2014-server.jar"/>
+				value="${destsr}/ija2014-server.jar"/>
+		</manifest>
+		</jar>
+		<!-- Client -->
+	   <jar destfile="${destcl}/ija2014-client.jar" basedir="${build}">
+		<manifest> <!-- Vytvoreni manifestu -->
+			<attribute name="Main-Class"
+				value="ija.project.gui.Window"/>
+			<attribute name="Class-Path"
+				value="${destcl}/ija2014-client.jar"/>
 		</manifest>
   	    </jar>
   	</target> 
 
   	<!-- Spusteni pres jar soubor -->
-  	<target name="run" description="Run Labyrint escaper application">
-  		<java classpath="${distsr}/ija2014-server.jar" classname="ija.homework3.Main" fork="yes"/>
+  	<target name="run" depends="compile" description="Run Labyrint escaper application - one server, two clients">
+  		<!-- Paralelni spusteni dvou clientu a serveru -->
+  		<parallel>
+  			<antcall target="server"/> 
+  			<antcall target="client"/>
+  			<antcall target="client"/>
+  		</parallel>
   	</target>
 
-  	<!-- Spusteni JUnit testu -->
-    <target name="test" description="JUnit testing">
-      <junit printsummary="withOutAndErr" fork="true">
-        <test name="ija.homework3.tests.JunitTest"/>
-        <classpath>
-          <pathelement path="${build}"/>
-          <pathelement location="${lib}/junit-4.10.jar"/>
-        </classpath>
-      </junit>
-    </target>
+	<!-- Spusteni clienta -->
+  	<target name="client" description="Run Labyrint escaper application - client">
+  		<java classpath="${destcl}/ija2014-client.jar" classname="ija.project.gui.Window" fork="yes"/>
+  	</target>
+
+  	<!-- Spusteni serveru -->
+  	<target name="server" description="Run Labyrint escaper application - server">
+  		<java classpath="${destsr}/ija2014-server.jar" classname="ija.project.server.SocketServer" fork="yes">
+  			<arg value="8011"/>	<!-- Parametr cisla portu -->
+  		</java>
+  	</target>
 
 </project>

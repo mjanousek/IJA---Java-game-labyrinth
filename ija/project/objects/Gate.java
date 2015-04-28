@@ -1,14 +1,20 @@
 /**
- * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
+ * @author:Martin Janousek xjanou14
  * @file: Gate.java
  * @version: 1.1
  */
 
 
 package ija.project.objects;
+import java.io.Serializable;
+
 import ija.project.table.TableObject;
 
-public class Gate extends TableObject{
+public class Gate extends TableObject implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected boolean open= false;
 	char symbol = 'G';
 	

@@ -1,17 +1,27 @@
 /**
  * Trida reprezentujici hrace a celou jeho funkcionalitu.
- * @author: Martin Janousek xjanou14, Marek Fiala, xfiala46
+ * @author: Martin Janousek xjanou14
  * @file:Player.java
  * @version: 1.1
  */
 
 package ija.project.figure;
 
+import java.awt.Color;
+
 import ija.project.table.*;
 
 public class Player extends Figure{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected int key = 0;
 	protected boolean alive;
+	private Color myColor;
+	private int moveCount = 0;
+	private int ID;
+	long start;
 	
 	/**
 	 * Metoda pro inicializaci hrace na policko a ulozeni jeho souradnic 
@@ -21,9 +31,12 @@ public class Player extends Figure{
 	 * @param f 	policko na kterem je hrac vytvoren
 	 * @param sight	pocatecni pohled hrace
 	 */
-	public Player(int row,int col, TableField f,int sight){
+	public Player(int row,int col, TableField f,int sight,Color color,int ID){
 		super(row,col,f,sight);
+		this.ID = ID;
+		myColor = color;
 		alive = true;
+		start = System.currentTimeMillis();
 	}
 
 	/**
@@ -62,6 +75,10 @@ public class Player extends Figure{
 		case 3: return '<';
 		default: return 'X';		
 		}
+	}
+	
+	public Color getColor(){
+		return myColor;
 	}
 	
 	/**
@@ -107,23 +124,59 @@ public class Player extends Figure{
 				row= fd.positionRow();	//Nahrani novych souradnic
 				col = fd.positionCol();
 				field = fd;
+				moveCount++; //Pocitadlo kroku
 				return true;
-			}				
+			}	
+			return false;
 		}
-        return false;
+        return true;
 	}
 	
-	//Overeni vyhry
+	/**
+	 * Overeni zda postavicka nestoji na miste cile
+	 * @return true hrac vyhral, false hrac dosud nevyhral
+	 */
 	public boolean isWinner(){
 		return field.isFinish();
 	}
 	
+	/**
+	 * Overeni zda postavicka zije
+	 * @return truezije, false hrac nezije
+	 */
 	public boolean amIAlive(){
 		return alive;
 	}
 	
+	/**
+	 * Zabiti hrace
+	 */
 	public void kill(){
 		alive = false;
+	}
+	
+	/**
+	 * Ziskani ID postavicky
+	 * @return ID
+	 */
+	public int getID(){
+		return ID;
+	}
+	
+	/**
+	 * Pocet projitych policek
+	 * @return pocet policek
+	 */
+	public int getMoveCount(){
+		return moveCount;
+	}
+	
+	/**
+	 * Ziskani pocatecniho casu kdy se hrac pripojil
+	 * @return pocatecni cas
+	 */
+	public long getStartTime(){
+		return start;
 	}
 }
 

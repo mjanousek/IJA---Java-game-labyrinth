@@ -1,13 +1,13 @@
 /**
  * Trida slouzici pro otevreni a nacteni zadane hry
  * 
- * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
+ * @author:Martin Janousek xjanou14
  * @file: FileReader.java
  * @version: 1.1
  */
 
 
-package ija.project.io;
+package ija.project.controler;
 
 //Import
 import ija.project.table.*;
@@ -28,11 +28,11 @@ public class FileReader {
 		File file = new File(System.getProperty("user.dir")+"/examples/"+filename);
 		//Zjisteni existence souboru
 		if (!file.exists()) {
-			System.err.println(filename + " does not exist.");
+			System.err.println("[server] "+filename + " does not exist.");
 			return null;
 		}
 		if (!(file.isFile() && file.canRead())) {
-			System.err.println(filename + " cannot be read from.");
+			System.err.println("[server] "+filename + " cannot be read from.");
 			return null;
 		}
 		try{
@@ -43,7 +43,7 @@ public class FileReader {
 			fis.close();
 			return tab;
 		}catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("[server] Cannot read the file");
 		}
 		return null;
 	}
@@ -59,14 +59,14 @@ public class FileReader {
 	   
 	   try{
 		   if(!s.hasNext()){	//Pokud neexistuje prvni radek chyba
-			   System.out.println("No size was found\n");
+			   System.err.println("[server] No size was found\n");
 			   return null;
 		   }
 			   
 		   String numbStr = s.next();
 		   row = Integer.parseInt(numbStr.substring(0, 2)); // X souradnice
 		   if(!numbStr.substring(2,3).equals("x")){			// Oddelovac x
-			   System.out.println("Missing size number devider x insted"+numbStr.substring(2,3));
+			   System.err.println("[server] Missing size number devider x insted"+numbStr.substring(2,3));
 			   return null;	
 		   }
 		   col = Integer.parseInt(numbStr.substring(3)); 	// Y souradnice
@@ -78,14 +78,14 @@ public class FileReader {
 		   }  
 		   
 		   if(table.lineSize() != row){
-			   System.out.println("Wrong size rows\n");
+			   System.err.println("[server] Wrong size rows\n");
 			   return null;		   
 		   }
-		   System.out.println("Maze size ROW:"+row+" COLOMNS:"+col);
+		   System.out.println("[server] Maze size ROW:"+row+" COLOMNS:"+col);
 
 		   return table;
 	   }catch(NumberFormatException e){
-		   System.err.println("Wrong number format\n");
+		   System.err.println("[server] Wrong number format\n");
 		   return null;
 	   }
    }

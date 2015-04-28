@@ -1,20 +1,27 @@
 /**
- * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
+ * @author:Martin Janousek xjanou14
  * @file: TapeField.java
  * @version: 1.1
  */
 
 package ija.project.table;
 
+import java.awt.Color;
+import java.io.Serializable;
+
 import ija.project.objects.Finish;
 import ija.project.figure.*;
 
-public class TableField {
+public class TableField implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int row;
 	private int col;
 	private TableObject object = null;
-	private Figure figure = null;
+	public Figure figure = null;
 	protected Table table;
 	
 	/**
@@ -31,14 +38,6 @@ public class TableField {
 		this.row = row;
 		this.col = col;
 	}
-		
-	//Test, zda je možné otevrít objekt na polcku. Podmínka: polícko obsahuje objekt, který lze otevrit.
-/*	public boolean canBeOpen(){
-        if((this.object) == null)
-            return object.canBeOpen();
-        else
-            return false;
-	}*/
 	
 	/**
 	 * Metoda vraci pozici radku policka @return cislo symbolizujici radek
@@ -127,6 +126,17 @@ public class TableField {
 	}
 	
 	/**
+	 * Ziskani barvy hrace
+	 * @return barva pokud na poli stoji hrac, null pokud ne 
+	 */
+	public Color paintObj(){
+		if(figure != null && figure instanceof Player)
+			return ((Player)figure).getColor();
+		else
+			return null;
+	}
+	
+	/**
 	 * Metoda vraci policko na dane pozici
 	 * 
 	 * @param 	row cislo radku
@@ -166,14 +176,31 @@ public class TableField {
 			return (object instanceof Finish);
 	}
 	
+	/**
+	 * Lze zabit objekt na policku 
+	 * @return uspesnost zabiti
+	 */
 	public boolean couldKill(){
 		if(figure != null && figure instanceof Player){
 			Player pl = (Player)figure;
+			table.leavePlayer(pl);
+			table.rewriteMsgForAll("Player "+pl.getID()+" was KILLED!!!");
 			pl.kill();
 			this.leave();
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Ziskani hrace na policku
+	 * @return figurka hrace, pokud se nenachazi tak null
+	 */
+	public Player getPlayerFigure(){
+		if(figure != null && figure instanceof Player)
+			return (Player) figure;
+		else
+			return null;
 	}
 }
 

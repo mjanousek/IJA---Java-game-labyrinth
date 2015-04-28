@@ -1,8 +1,21 @@
+/**
+ * Abstraktni trida ze ktere jsou odvozeny vsechny ostatni figurky
+ * @author: Martin Janousek xjanou14
+ * @file:Figure.java
+ * @version: 1.1
+ */
+
 package ija.project.figure;
+
+import java.io.Serializable;
 
 import ija.project.table.TableField;
 
-public abstract class Figure {
+public abstract class Figure implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected int row;
 	protected int col;
 	protected TableField field = null;
@@ -86,3 +99,4 @@ public abstract class Figure {
 	 */
 	public abstract boolean move();
 }
+/*** end of Figure.java ***/

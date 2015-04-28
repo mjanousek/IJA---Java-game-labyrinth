@@ -2,13 +2,14 @@
  * Abstraktni trida slouzici k implementaci trid Finish, Gate, Key, Wall,
  * ktere od teto tridy dedi.
  * 
- * @author:Martin Janousek xjanou14, Marek Fiala, xfiala46
+ * @author:Martin Janousek xjanou14
  * @file: TapeObject.java
  * @version: 1.1
  */
 
 
 package ija.project.table;
+
 import ija.project.objects.*;
 
 public abstract class TableObject {
@@ -43,13 +44,6 @@ public abstract class TableObject {
 	 */
 	public abstract boolean canBeTaken();
 	
-	/*	Vytvori a vrati objekt podle zadaného typu format. Popis retezce format:
-	 * W = Wall
-	 * G = Gate
-	 * K = Key
-	 * F = Finish
-	 * ostatni pripady null
-	 */
 	/**
 	 * Metoda vytvarejici instanci objektu podle zadaneho parametru.
 	 * @param format		- urcuje objekt, ktery ma byt vytvoren
